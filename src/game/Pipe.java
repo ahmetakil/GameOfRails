@@ -6,7 +6,8 @@ public class Pipe extends Tile {
     private boolean leftEdge;
     private boolean rightEdge;
 
-    public Pipe(byte x, byte y, boolean movable, boolean upEdge, boolean downEdge, boolean leftEdge, boolean rightEdge) {
+    public Pipe(int x, int y, boolean movable, boolean upEdge, boolean downEdge, boolean leftEdge, boolean rightEdge) {
+
         super(x, y, movable);
         this.upEdge = upEdge;
         this.downEdge = downEdge;
@@ -15,8 +16,9 @@ public class Pipe extends Tile {
     }
 
 
-    //This method sets edges due to given position (0 is up,1 is left,2 is down,3 is right)
-    public void setPosition(byte position1, byte position2) {
+    //This method sets edges due to given position (0 is up, 1 is left, 2 is down, 3 is right)
+    public void setPosition(int position1, int position2) {
+
         //Error checking. If the positions are the same it will throw an exception.
         if (position1 == position2) {
             System.out.println("pos1 and pos2 is are same");

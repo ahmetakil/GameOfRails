@@ -3,18 +3,18 @@ package game;
 import javafx.scene.image.Image;
 
 public abstract class Tile {
-    private byte x; // Location of the tile at x-axis in the grid pane
-    private byte y; // Location of the tile at y-axis in the grid pane
-    private Image image; // Image of the tile which was brought from minecraft rail system.
+    private int x; // Location of the tile at x-axis in the grid pane
+    private int y; // Location of the tile at y-axis in the grid pane
+    private Image image;
     private boolean movable; //A boolean variable that keeps is tile static or not.
 
-    public Tile(byte x, byte y, boolean movable) { //Construction of the object
+    public Tile(int x, int y, boolean movable) { //Construction of the object
         this.x = x;
         this.y = y;
         this.movable = movable;
     }
 
-    public byte getX() { //Getter Setter methods.
+    public int getX() { //Getter Setter methods.
         return x;
     }
 
@@ -22,7 +22,7 @@ public abstract class Tile {
         this.x = x;
     }
 
-    public byte getY() {
+    public int getY() {
         return y;
     }
 
