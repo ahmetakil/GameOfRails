@@ -14,11 +14,16 @@ public class Pipe extends Tile {
         this.rightEdge = rightEdge;
     }
 
+
+    //This method sets edges due to given position (0 is up,1 is left,2 is down,3 is right)
     public void setPosition(byte position1, byte position2) {
+        //Error checking. If the positions are the same it will throw an exception.
         if (position1 == position2) {
             System.out.println("pos1 and pos2 is are same");
-            return;
+            return; // If they are same it returns nothing for exit the method.
         }
+
+        //Sets first position checking the position value
         if (position1 == 0) {
             setUpEdge(true);
         } else if (position1 == 1) {
@@ -28,6 +33,7 @@ public class Pipe extends Tile {
         } else if (position1 == 3) {
             setRightEdge(true);
         }
+        //Sets second position checking the position value
         if (position2 == 0) {
             setUpEdge(true);
         } else if (position2 == 1) {
