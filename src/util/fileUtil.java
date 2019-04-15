@@ -13,6 +13,7 @@ public class fileUtil {
     public static ArrayList<Tile> readText(int level) { // Reading text with level parameter
 
         ArrayList<Tile> tiles = new ArrayList<>();
+
         try {
 
             File file = new File("levels/level" + level + ".txt");
