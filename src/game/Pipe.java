@@ -6,40 +6,35 @@ public class Pipe extends Tile {
     private boolean leftEdge;
     private boolean rightEdge;
 
-    public Pipe(byte x,byte y,boolean movable,boolean upEdge, boolean downEdge, boolean leftEdge, boolean rightEdge) {
+    public Pipe(byte x, byte y, boolean movable, boolean upEdge, boolean downEdge, boolean leftEdge, boolean rightEdge) {
         super(x, y, movable);
         this.upEdge = upEdge;
         this.downEdge = downEdge;
         this.leftEdge = leftEdge;
         this.rightEdge = rightEdge;
     }
-    public void setPosition(byte position1,byte position2){
-        if(position1 == position2){
+
+    public void setPosition(byte position1, byte position2) {
+        if (position1 == position2) {
             System.out.println("pos1 and pos2 is are same");
             return;
         }
-        if (position1 == 0){
+        if (position1 == 0) {
             setUpEdge(true);
-        }
-        else if (position1 == 1){
+        } else if (position1 == 1) {
             setLeftEdge(true);
-        }
-        else if (position1 == 2){
+        } else if (position1 == 2) {
             setDownEdge(true);
-        }
-        else if (position1 == 3){
+        } else if (position1 == 3) {
             setRightEdge(true);
         }
-        if (position2 == 0){
+        if (position2 == 0) {
             setUpEdge(true);
-        }
-        else if (position2 == 1){
+        } else if (position2 == 1) {
             setLeftEdge(true);
-        }
-        else if (position2 == 2){
+        } else if (position2 == 2) {
             setDownEdge(true);
-        }
-        else if (position2 == 3){
+        } else if (position2 == 3) {
             setRightEdge(true);
         }
     }
