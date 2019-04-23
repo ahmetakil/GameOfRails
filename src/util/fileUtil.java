@@ -102,11 +102,11 @@ public class fileUtil {
 
                         if(direction.equalsIgnoreCase("Horizontal")){
 
-                            tiles.add(new Static(coordinates[0],coordinates[1],1,3));
+                            tiles.add(new Static(coordinates[0],coordinates[1],false,false,true,true));
 
                         }else{
 
-                            tiles.add(new Static(coordinates[0],coordinates[1],0,2));
+                            tiles.add(new Static(coordinates[0],coordinates[1],true,true,false,false));
                         }
 
                         break;
