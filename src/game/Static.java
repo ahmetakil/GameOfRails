@@ -1,5 +1,7 @@
 package game;
 
+import javafx.scene.paint.Color;
+
 public class Static extends Pipe {
 
     public Static(int x, int y, boolean upEdge, boolean downEdge, boolean leftEdge, boolean rightEdge) {
@@ -11,5 +13,10 @@ public class Static extends Pipe {
 
         super(x, y, false, false, false, false, false);
         setPosition(position1, position2);
+    }
+
+    @Override
+    public void setFill(){
+        this.setFill(Color.BLUE);
     }
 }

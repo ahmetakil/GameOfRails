@@ -1,5 +1,7 @@
 package game;
 
+import javafx.scene.paint.Color;
+
 public class Pipe extends Tile {
     private boolean upEdge;     //Declaring 4 variables for the edges is the in/out or just a wall.
     private boolean downEdge;   // 1 means the edge has the pipe input output. 0 means not.
@@ -15,6 +17,10 @@ public class Pipe extends Tile {
         this.rightEdge = rightEdge;
     }
 
+    @Override
+    public void setFill() {
+        this.setFill(Color.GOLD);
+    }
 
     //This method sets edges due to given position (0 is up, 1 is left, 2 is down, 3 is right)
     public void setPosition(int position1, int position2) {
