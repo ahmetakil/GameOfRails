@@ -1,5 +1,7 @@
 package game;
 
 public class gameLogic {
-// xx
+
+//TODO CREATE A METHOD THAT IS RESPONSIBLE FOR PATH FINDING APIS.
+
 }
