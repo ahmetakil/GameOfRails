@@ -1,6 +1,8 @@
 package game;
 
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 
 public class Free extends EmptyTile {
 
@@ -11,6 +13,6 @@ public class Free extends EmptyTile {
 
     @Override
     public void setFill() {
-        this.setFill(Color.GRAY);
+        this.setFill(new ImagePattern(new Image("img/emptyFree.jpeg")));
     }
 }

@@ -2,6 +2,7 @@ package game;
 
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
 
@@ -17,17 +18,17 @@ public abstract class Tile extends Rectangle {
         this.xGrid = x;
         this.yGrid = y;
         this.movable = movable;
+        this.image = new Image("img/empty.jpeg");
         setFill();
+        setStroke(Color.WHITE);
+
     }
 
 
     public void setFill(){
-        this.setFill(Color.BLACK);
+        this.setFill(new ImagePattern(this.image));
     }
 
-    public void setImage(Image image) {
-        this.image = image;
-    }
 
     public boolean isMoveable() {
         return movable;
@@ -41,4 +42,5 @@ public abstract class Tile extends Rectangle {
     public int getyGrid() {
         return yGrid;
     }
+
 }

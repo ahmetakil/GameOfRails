@@ -1,22 +1,23 @@
 package game;
 
-import javafx.scene.paint.Color;
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
 
 public class Static extends Pipe {
 
     public Static(int x, int y, boolean upEdge, boolean downEdge, boolean leftEdge, boolean rightEdge) {
 
         super(x, y, false, upEdge, downEdge, leftEdge, rightEdge);
+        setFill();
     }
 
-    public Static(int x, int y, int position1, int position2) {
-
-        super(x, y, false, false, false, false, false);
-        setPosition(position1, position2);
-    }
 
     @Override
     public void setFill(){
-        this.setFill(Color.BLUE);
+        if(isHorizontal()) {
+            this.setFill(new ImagePattern(new Image("img/staticHorizontal.jpeg")));
+        }else{
+            this.setFill(new ImagePattern(new Image("img/staticVertical.jpeg")));
+        }
     }
 }

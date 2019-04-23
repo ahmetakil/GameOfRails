@@ -1,6 +1,8 @@
 package game;
 
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 
 public class Pipe extends Tile {
     private boolean upEdge;     //Declaring 4 variables for the edges is the in/out or just a wall.
@@ -19,7 +21,11 @@ public class Pipe extends Tile {
 
     @Override
     public void setFill() {
-        this.setFill(Color.GOLD);
+        if(isHorizontal()) {
+            this.setFill(new ImagePattern(new Image("img/pipeHorizontal.jpeg")));
+        }else{
+            this.setFill(new ImagePattern(new Image("img/pipeVertical.jpeg")));
+        }
     }
 
     //This method sets edges due to given position (0 is up, 1 is left, 2 is down, 3 is right)
@@ -83,5 +89,9 @@ public class Pipe extends Tile {
 
     public void setRightEdge(boolean rightEdge) {
         this.rightEdge = rightEdge;
+    }
+
+    public boolean isHorizontal(){
+        return (this.leftEdge && this.rightEdge);
     }
 }
