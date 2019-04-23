@@ -32,8 +32,8 @@ public class Gui {
 
 
         pane.setPadding(new Insets(3,3,3,3));
-        pane.setHgap(3);
         pane.setVgap(3);
+        pane.setHgap(3);
 
         scene = new Scene(pane, SIZE, SIZE); // Creating scene with pane
 
