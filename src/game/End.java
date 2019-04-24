@@ -1,7 +1,6 @@
 package game;
 
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 
 public class End extends Pipe {
@@ -18,11 +17,6 @@ public class End extends Pipe {
         setFill();
     }
 
-    public End(int x, int y, byte position) {
-
-        super(x, y, false, false, false, false, false);
-        setPosition(position, (byte) -1);
-    }
 
     @Override
     public void setFill() {

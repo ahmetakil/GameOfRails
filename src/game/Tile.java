@@ -14,7 +14,6 @@ public abstract class Tile extends Rectangle {
 
 
     public Tile(int x, int y, boolean movable) { //Construction of the object
-        super(130,130);
         this.xGrid = x;
         this.yGrid = y;
         this.movable = movable;
@@ -41,6 +40,14 @@ public abstract class Tile extends Rectangle {
 
     public int getyGrid() {
         return yGrid;
+    }
+
+    public void setxGrid(int xGrid){
+        this.xGrid = xGrid;
+    }
+
+    public void setyGrid(int yGrid){
+        this.yGrid = yGrid;
     }
 
 }
