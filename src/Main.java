@@ -9,7 +9,6 @@ public class Main extends Application {
 
     public static void main(String[] args) {
 
-
         launch(args);
 
     }
@@ -17,7 +16,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        Tile[][] grid = fileUtil.createGrid(2);
+        Tile[][] grid = fileUtil.createGrid(1);
 
         Gui gui = new Gui(grid);
         gui.showGrid(primaryStage);
@@ -25,3 +24,13 @@ public class Main extends Application {
 
     }
 }
+/**
+TODO:
+   -Swapping tiles
+   -Path Logic Check
+   - Animation
+   - Images
+   - Check if replacing dirt with water
+ actually make sense or not.
+
+ */
