@@ -24,6 +24,18 @@ public abstract class Tile extends Rectangle {
     }
 
 
+    //Added these because to use this in the gameUtil with no harm.
+    public abstract boolean isUpEdge();
+    public abstract boolean isLeftEdge();
+    public abstract boolean isRightEdge();
+    public abstract boolean isDownEdge();
+
+    public abstract void setUpEdge(boolean upEdge);
+    public abstract void setLeftEdge(boolean leftEdge);
+    public abstract void setRightEdge(boolean rightEdge);
+    public abstract void setDownEdge(boolean downEdge);
+
+
     public void setFill(){
         this.setFill(new ImagePattern(this.image));
     }
