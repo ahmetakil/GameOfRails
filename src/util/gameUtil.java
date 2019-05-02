@@ -11,8 +11,11 @@ public class gameUtil {
 
         int x;
         int y;
+        int leftPriorty = 0,rightPriorty = 0,upPriorty = 0,downPriorty = 0;
+
         int counter = 0; // We say that if we cant find a path in 100 moves we return false.
         Pipe starterTile = null;
+        Pipe endTile = null;
         outerLoop:for (int i = 0; i < tiles[0].length; i++) {
             for (int j = 0; j < tiles.length; j++) {
                 if (tiles[i][j] instanceof Starter) {
@@ -22,8 +25,31 @@ public class gameUtil {
             }
         }
 
+
+        outerLoop:for (int i = 0; i < tiles[0].length; i++) {
+            for (int j = 0; j < tiles.length; j++) {
+                if (tiles[i][j] instanceof End) {
+                    endTile = (Pipe) tiles[i][j];
+                    break outerLoop;
+                }
+            }
+        }
+
+
         x = starterTile.getxGrid(); // X or starter tile
         y = starterTile.getyGrid(); // Y of starter tile
+
+        int xTarget = endTile.getxGrid();
+        int yTarget = endTile.getyGrid();
+
+        int xDiff = x - xTarget;
+        int yDiff = y - yTarget;
+
+        upPriorty = yDiff;
+        leftPriorty = xDiff;
+
+        downPriorty = -yDiff;
+        rightPriorty = -xDiff;
 
         while (!(tiles[x][y] instanceof End)) {
 
@@ -35,33 +61,41 @@ public class gameUtil {
 
             counter++;
 
-            if (currentTile.isDownEdge()) {
+            if (currentTile.isDownEdge() && downPriorty >= upPriorty) {
                 if (tiles[x][y + 1].isUpEdge()) { //Current pipe is downEdged and pipe below is upEdge() we can move there.
 
                     y++; // Go below
+                    downPriorty--;
+                    upPriorty++;
                     continue;
 
                 }
             }
 
-            if (currentTile.isRightEdge()) {
+            if (currentTile.isRightEdge() && rightPriorty >= leftPriorty) {
                 if (tiles[x + 1][y].isLeftEdge()) {
 
                     x++; // Go right
+                    rightPriorty--;
+                    leftPriorty++;
                     continue;
                 }
             }
 
-            if (currentTile.isUpEdge()) {
+            if (currentTile.isUpEdge() && upPriorty >= downPriorty){
                 if (tiles[x][y - 1].isDownEdge()) {
-                    y--;
+                    y--; // Go up
+                    upPriorty--;
+                    downPriorty++;
                     continue;
                 }
             }
 
-            if (currentTile.isLeftEdge()) {
+            if (currentTile.isLeftEdge() && leftPriorty >= rightPriorty) {
                 if (tiles[x - 1][y].isRightEdge()) {
-                    x--;
+                    x--; // Go left
+                    leftPriorty--;
+                    rightPriorty++;
                     continue;
                 }
             }
