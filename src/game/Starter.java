@@ -22,6 +22,11 @@ public class Starter extends Pipe {
     }
 
     @Override
+    public boolean isHorizontal() {
+        return isLeftEdge();
+    }
+
+    @Override
     public String toString(){
         return String.format("Starter pipe at %d %d ",getxGrid(),getyGrid());
     }
