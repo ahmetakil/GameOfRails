@@ -1,7 +1,6 @@
 import game.Tile;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import util.gameUtil;
@@ -11,19 +10,26 @@ import java.util.ArrayList;
 public class Gui {
 
     private Tile[][] tiles;
-    private GridPane pane;
-    private static final int SIZE = 400;
+    private Pane pane;
+    static int SIZE = gameUtil.SIZE;
     private Scene scene;
     private ArrayList<Tile> swapArray;
+    double tilePrevX = 0; // X location of tile before dragging.
+    double tilePrevY = 0; // Y location of tile before dragging
 
-    public Gui(Tile[][] tiles) { // Constructor of GUI
+    public Gui(Tile[][] tiles) {
 
-        this.tiles = tiles; // Get the files from argument which gives the input read from file
-        pane = new GridPane();
+        this.tiles = tiles;
+        pane = new Pane();
         for (int row = 0; row < tiles.length; row++) {
             for (int col = 0; col < tiles[row].length; col++) {
 
-                pane.add(tiles[row][col], col, row); // iterate through the matrix add all the tiles to the pane
+                Tile tile = tiles[row][col];
+                tile.setLayoutX(row * 100);
+                pane.setStyle("-fx-background-image: url(\"img/empty.jpeg\"); ");
+                tile.setLayoutY(col * 100);
+                pane.getChildren().add(tile); // iterate through the matrix add all the tiles to the pane
+
             }
         }
         swapArray = new ArrayList<>();
@@ -32,41 +38,53 @@ public class Gui {
 
     public void showGrid(Stage stage) {
 
-       pane.setAlignment(Pos.CENTER);
-
         scene = new Scene(pane, SIZE, SIZE); // Creating scene with pane
-        scene.setFill(Color.rgb(135,135 ,140 ));
+        scene.setFill(Color.rgb(135, 135, 140));
+        //pane.setStyle("-fx-background-image: url(\"img/emptyFree.jpeg\");");
+
         for (int row = 0; row < tiles.length; row++) {
             for (int col = 0; col < tiles[row].length; col++) {
 
-                Tile tile = tiles[row][col];
 
-                // Bind the tiles to the screen to make the page responsive
-                tile.widthProperty().bind(scene.widthProperty().divide(4).subtract(7));
-                tile.heightProperty().bind(scene.heightProperty().divide(4).subtract(7));
+                Tile tile = tiles[col][row];
 
-                // PRESS EVENT
-                tile.setOnMousePressed(e->{
+                tile.setOnMousePressed(e -> {
+
+                     /* Removing then putting the tile back on top to give it top priority
+                    otherwise it will go below other tiles.  */
+                    pane.getChildren().remove(tile);
+                    pane.getChildren().add(tile);
+                    tilePrevX = tile.getLayoutX();
+                    tilePrevY = tile.getLayoutY();
                     swapArray.clear();
-                    Tile swap1 = (Tile) e.getPickResult().getIntersectedNode();
-                    System.out.println(swap1.getxGrid()+" , "+swap1.getyGrid());
-                    swapArray.add(swap1);
+                    swapArray.add(tile);
 
                 });
 
-                // RELEASE EVENT
-                tile.setOnMouseReleased(e->{
-                    if(!(e.getPickResult().getIntersectedNode() instanceof Tile)){
+
+                tile.setOnMouseDragged(e -> {
+                    tile.setLayoutX(e.getSceneX() - tile.getWidth() / 2);
+                    tile.setLayoutY(e.getSceneY() - tile.getHeight() / 2);
+
+                });
+
+                tile.setOnMouseReleased(e -> {
+                    Tile swap2 = gameUtil.getTileFromMouse(tiles, e.getSceneX(), e.getSceneY());
+
+                    if (!gameUtil.isSwappableTiles(swapArray.get(0), swap2)) {
+
+                        tile.setLayoutX(tilePrevX);
+                        tile.setLayoutY(tilePrevY);
                         return;
                     }
-                    Tile swap2 = (Tile) e.getPickResult().getIntersectedNode();
-                    if(!swapArray.contains(swap2)){
-                        swapArray.add(swap2);
-                        swapTiles(swapArray.get(0),swapArray.get(1));
-
-
+                    swapArray.add(swap2);
+                    swapTiles(swapArray.get(0), swapArray.get(1));
+                    if (gameUtil.isPathConstructed(tiles)) {
+                        System.out.println("gg");
                     }
+
                 });
+
             }
         }
 
@@ -77,30 +95,43 @@ public class Gui {
 
     private boolean swapTiles(Tile tile1, Tile tile2) {
 
-
+        /**These Grid assignments are for out arbitrary grid positions
+         * layout positions are for replacing them in the pane
+         * */
         int xGrid1 = tile1.getxGrid();
         int yGrid1 = tile1.getyGrid();
 
         int xGrid2 = tile2.getxGrid();
         int yGrid2 = tile2.getyGrid();
 
-        if((Math.abs(xGrid1-xGrid2) + Math.abs(yGrid1-yGrid2) != 1) || !gameUtil.isSwappableTiles(tile1,tile2)){
-            return false;
-        }
+
+        double xLayout2 = tile2.getLayoutX();
+        double yLayout2 = tile2.getLayoutY();
 
         pane.getChildren().remove(tile1);
         pane.getChildren().remove(tile2);
 
-        pane.add(tile1,xGrid2,yGrid2);
-        pane.add(tile2,xGrid1,yGrid1);
+        // SCENE POSITION ASSIGNMENT
+        tile1.setLayoutX(xLayout2);
+        tile1.setLayoutY(yLayout2);
+
+        tile2.setLayoutX(tilePrevX);
+        tile2.setLayoutY(tilePrevY);
+
+        pane.getChildren().add(tile1);
+        pane.getChildren().add(tile2);
+
+        // GRID POSITION ASSIGNMENT
+        tile1.setxGrid(xGrid2);
+        tile1.setyGrid(yGrid2);
+
+        tile2.setxGrid(xGrid1);
+        tile2.setyGrid(yGrid1);
+
 
         tiles[xGrid1][yGrid1] = tile2;
         tiles[xGrid2][yGrid2] = tile1;
-        tile1.setxGrid(xGrid2);
-        tile2.setxGrid(xGrid1);
 
-        tile1.setyGrid(yGrid2);
-        tile2.setyGrid(yGrid1);
         swapArray.clear();
         return true;
     }

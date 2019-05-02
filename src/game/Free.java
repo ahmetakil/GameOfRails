@@ -14,4 +14,9 @@ public class Free extends EmptyTile {
     public void setFill() {
         this.setFill(new ImagePattern(new Image("img/emptyFree.jpeg")));
     }
+
+    @Override
+    public String toString(){
+        return String.format("Free  at %d %d ",getxGrid(),getyGrid());
+    }
 }

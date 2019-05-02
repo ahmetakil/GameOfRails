@@ -30,9 +30,6 @@ public class Pipe extends Tile {
     }
 
 
-
-
-
     public boolean isUpEdge() {
         return upEdge;
     }
@@ -68,4 +65,10 @@ public class Pipe extends Tile {
     public boolean isHorizontal(){
         return (this.leftEdge && this.rightEdge);
     }
+
+    @Override
+    public String toString(){
+        return String.format("Pipe at %d %d ",getxGrid(),getyGrid());
+    }
+
 }

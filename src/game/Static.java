@@ -20,4 +20,9 @@ public class Static extends Pipe {
             this.setFill(new ImagePattern(new Image("img/staticVertical.jpeg")));
         }
     }
+
+    @Override
+    public String toString(){
+        return String.format("Static pipe at %d %d ",getxGrid(),getyGrid());
+    }
 }

@@ -20,4 +20,9 @@ public class Starter extends Pipe {
             this.setFill(new ImagePattern(new Image("img/starterVertical.png")));
         }
     }
+
+    @Override
+    public String toString(){
+        return String.format("Starter pipe at %d %d ",getxGrid(),getyGrid());
+    }
 }

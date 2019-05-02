@@ -19,18 +19,18 @@ public class Main extends Application {
         Tile[][] grid = fileUtil.createGrid(1);
 
         Gui gui = new Gui(grid);
+        primaryStage.setResizable(false);
         gui.showGrid(primaryStage);
-
 
     }
 }
 /**
 TODO:
-   -Swapping tiles
-   -Path Logic Check
+   +Swapping tiles
+   +Path Logic Check
    - Animation
-   - Images
-   - Check if replacing dirt with water
+   + Images
+   + Check if replacing dirt with water
  actually make sense or not.
 
  */

@@ -6,7 +6,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
 
-public abstract class Tile extends Rectangle {
+public abstract class Tile extends Rectangle{
     private int xGrid; // Location of the tile at x-axis in the grid pane
     private int yGrid; // Location of the tile at y-axis in the grid pane
     private Image image;
@@ -14,6 +14,7 @@ public abstract class Tile extends Rectangle {
 
 
     public Tile(int x, int y, boolean movable) { //Construction of the object
+       super(100,100);
         this.xGrid = x;
         this.yGrid = y;
         this.movable = movable;
@@ -40,12 +41,6 @@ public abstract class Tile extends Rectangle {
         this.setFill(new ImagePattern(this.image));
     }
 
-
-    public boolean isMoveable() {
-        return movable;
-    }
-
-
     public int getxGrid() {
         return xGrid;
     }
@@ -60,6 +55,11 @@ public abstract class Tile extends Rectangle {
 
     public void setyGrid(int yGrid){
         this.yGrid = yGrid;
+    }
+
+    @Override
+    public String toString(){
+        return String.format("Tile at : %d , %d",xGrid,yGrid);
     }
 
 }

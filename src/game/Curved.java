@@ -5,11 +5,16 @@ import javafx.scene.paint.ImagePattern;
 
 public class Curved extends Pipe {
 
+    private int position1;
+    private int position2;
+
     public Curved(int x, int y, int position1, int position2) {
 
         super(x, y, false, false, false, false, false);
         setPosition(position1, position2);
         setFill();
+        this.position1 = position1;
+        this.position2 = position2;
     }
 
     // Converts input text from file to 4 variable boolean logic.
@@ -50,4 +55,8 @@ public class Curved extends Pipe {
         }
     }
 
+    @Override
+    public String toString(){
+        return String.format("Curved pipe %d %d at %d %d ",position1,position2,getxGrid(),getyGrid());
+    }
 }

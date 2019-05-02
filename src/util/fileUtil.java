@@ -14,17 +14,17 @@ public class fileUtil {
     So readText() method basically reads the text and gives us a 1 dimensional
     array list we want to convert that to a 2D 4x4 grid
      */
-    public static Tile[][] createGrid(int level){
+    public static Tile[][] createGrid(int level) {
 
         int pos = 0;
         Tile[][] grid = new Tile[4][4];
         ArrayList<Tile> tiles = readText(level);
 
 
-        for(int row=0;row<4;row++){
-            for(int col=0;col<4;col++){
+        for (int row = 0; row < 4; row++) {
+            for (int col = 0; col < 4; col++) {
 
-                grid[row][col] = tiles.get(pos);
+                grid[col][row] = tiles.get(pos);
                 pos++;
 
             }
@@ -47,7 +47,7 @@ public class fileUtil {
             while (scanner.hasNext()) {
 
                 String line = scanner.nextLine(); // id,type,property
-                if(line.trim().equalsIgnoreCase("")){
+                if (line.trim().equalsIgnoreCase("")) {
                     continue;
                 }
                 String[] lineContents = line.split(","); // [id, type , property]
@@ -72,7 +72,6 @@ public class fileUtil {
                         break;
 
 
-
                     case "End":
                         if (direction.equalsIgnoreCase("Vertical")) {
 
@@ -88,25 +87,25 @@ public class fileUtil {
 
                     case "Empty":
 
-                        if(direction.equalsIgnoreCase("Free")){
+                        if (direction.equalsIgnoreCase("Free")) {
 
-                            tiles.add(new Free(coordinates[0],coordinates[1]));
+                            tiles.add(new Free(coordinates[0], coordinates[1]));
 
-                        }else{
+                        } else {
 
-                            tiles.add(new EmptyTile(coordinates[0],coordinates[1]));
+                            tiles.add(new EmptyTile(coordinates[0], coordinates[1]));
                         }
                         break;
 
                     case "PipeStatic":
 
-                        if(direction.equalsIgnoreCase("Horizontal")){
+                        if (direction.equalsIgnoreCase("Horizontal")) {
 
-                            tiles.add(new Static(coordinates[0],coordinates[1],false,false,true,true));
+                            tiles.add(new Static(coordinates[0], coordinates[1], false, false, true, true));
 
-                        }else{
+                        } else {
 
-                            tiles.add(new Static(coordinates[0],coordinates[1],true,true,false,false));
+                            tiles.add(new Static(coordinates[0], coordinates[1], true, true, false, false));
                         }
 
                         break;
@@ -114,25 +113,23 @@ public class fileUtil {
                     case "Pipe":
 
 
-                        if(direction.equalsIgnoreCase("Vertical")){
+                        if (direction.equalsIgnoreCase("Vertical")) {
 
-                            tiles.add(new Pipe(coordinates[0],coordinates[1],true,true,true,false,false));
+                            tiles.add(new Pipe(coordinates[0], coordinates[1], true, true, true, false, false));
 
-                        }else if(direction.equalsIgnoreCase("Horizontal")){
+                        } else if (direction.equalsIgnoreCase("Horizontal")) {
 
-                            tiles.add(new Pipe(coordinates[0],coordinates[1],true,false,false,true,true));
-                        }else{
+                            tiles.add(new Pipe(coordinates[0], coordinates[1], true, false, false, true, true));
+                        } else {
 
-                            int first = Integer.parseInt(direction.charAt(0)+"");
-                            int second = Integer.parseInt(direction.charAt(1)+"");
+                            int first = Integer.parseInt(direction.charAt(0) + "");
+                            int second = Integer.parseInt(direction.charAt(1) + "");
 
-                            tiles.add(new Curved(coordinates[0],coordinates[1] ,first ,second ));
+                            tiles.add(new Curved(coordinates[0], coordinates[1], first, second));
                         }
                         break;
 
-
                 }
-
 
             }
 
@@ -143,14 +140,13 @@ public class fileUtil {
         return tiles;
     }
 
-
     // Calculate x and y values from position (Ex : 5 > x: 1 y:1)
-    public static int[] calculateCoordinatesfromPos(int position) {
+    private static int[] calculateCoordinatesfromPos(int position) {
 
         int x = (position - 1) % 4;
         int y = (position - 1) / 4;
-        int[] array = {x, y};
-        return array;
+        return new int[]{x, y};
 
     }
+
 }

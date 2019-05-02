@@ -6,7 +6,6 @@ import javafx.scene.paint.ImagePattern;
 public class End extends Pipe {
 
 
-
     public End(int x, int y, boolean upEdge, boolean downEdge, boolean leftEdge, boolean rightEdge) {
 
         super(x, y, false, upEdge, downEdge, leftEdge, rightEdge);
@@ -25,5 +24,10 @@ public class End extends Pipe {
         }else{
             this.setFill(new ImagePattern(new Image("img/endVertical.jpeg")));
         }
+    }
+
+    @Override
+    public String toString(){
+        return String.format("End pipe at %d %d ",getxGrid(),getyGrid());
     }
 }
