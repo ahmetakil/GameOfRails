@@ -33,4 +33,13 @@ TODO:
    + Check if replacing dirt with water
  actually make sense or not.
 
+
+ extra things
+    - Play music at the background which is can be closed by user.
+    - Key generator for let the user continue to game.
+    - Themes can be added from user.
+    - Program can only resize while it protects it shape.
+    - Congratulaitons at the end.
+
+
  */
