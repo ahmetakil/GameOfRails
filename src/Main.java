@@ -1,8 +1,8 @@
 import game.Tile;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import util.audioUtil;
 import util.fileUtil;
-
 
 public class Main extends Application {
 
@@ -21,18 +21,19 @@ public class Main extends Application {
 
         Gui gui = new Gui(grid);
         primaryStage.setResizable(false);
-        gui.showGrid(primaryStage);
-
+        gui.showGui(primaryStage);
+        audioUtil util = new audioUtil();
+        util.playAudio("yes2.aiff");
     }
+
+
 }
 
-/**
- TODOS:
+/*
+ TODO:
     - Play music at the background which is can be closed by user.
     - Key generator for let the user continue to game.
     - Themes can be added from user.
-    - If level is 5  dont try to load level6
+    - Better background image
     - Congratulations at the end.
-
-
  */

@@ -10,14 +10,12 @@ public abstract class Tile extends Rectangle{
     private int xGrid; // Location of the tile at x-axis in the grid pane
     private int yGrid; // Location of the tile at y-axis in the grid pane
     private Image image;
-    private boolean movable; //A boolean variable that keeps is tile static or not
 
 
-    public Tile(int x, int y, boolean movable) { //Construction of the object
+    public Tile(int x, int y) { //Construction of the object
        super(100,100);
         this.xGrid = x;
         this.yGrid = y;
-        this.movable = movable;
         this.image = new Image("img/empty.jpeg");
         setFill();
         setStroke(Color.WHITE);

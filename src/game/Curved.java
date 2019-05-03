@@ -10,7 +10,7 @@ public class Curved extends Pipe {
 
     public Curved(int x, int y, int position1, int position2) {
 
-        super(x, y, false, false, false, false, false);
+        super(x, y, false, false, false, false);
         setPosition(position1, position2);
         setFill();
         this.position1 = position1;

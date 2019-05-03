@@ -9,8 +9,9 @@ import java.util.ArrayList;
 
 public class gameUtil {
 
-    public static final int SIZE = 400;
+    public static final int GAME_SIZE = 400;
     private static ArrayList<PathElement> paths = new ArrayList<>();
+    public static final int offset = 40;
 
     public static ArrayList<PathElement> getPaths() {
         return paths;
@@ -73,7 +74,6 @@ public class gameUtil {
 
             Tile currentTile = tiles[x][y];
 
-            int offset = 40;
             if (currentTile.isDownEdge() && downPriority >= upPriority && lastAction != LastAction.UP) {
                 if (tiles[x][y + 1].isUpEdge()) { //Current pipe is downEdged and pipe below is upEdge() we can move there.
 
@@ -164,7 +164,9 @@ public class gameUtil {
                 || tile1 instanceof End
                 || tile2 instanceof End
                 || tile1 instanceof Starter
-                || tile2 instanceof Starter) {
+                || tile2 instanceof Starter
+                || tile1 instanceof CurvedStatic
+                || tile2 instanceof CurvedStatic) {
 
             return false;
         }
@@ -179,21 +181,21 @@ public class gameUtil {
         int yGrid = 0;
 
         // Find which tile is clicked by the mouse location.
-        if (sceneX <= SIZE / 4) {
+        if (sceneX <= GAME_SIZE / 4) {
             xGrid = 0;
-        } else if (sceneX <= SIZE / 2) {
+        } else if (sceneX <= GAME_SIZE / 2) {
             xGrid = 1;
-        } else if (sceneX <= 3 * SIZE / 4) {
+        } else if (sceneX <= 3 * GAME_SIZE / 4) {
             xGrid = 2;
         } else {
             xGrid = 3;
         }
 
-        if (sceneY <= SIZE / 4) {
+        if (sceneY <= GAME_SIZE / 4) {
             yGrid = 0;
-        } else if (sceneY <= SIZE / 2) {
+        } else if (sceneY <= GAME_SIZE / 2) {
             yGrid = 1;
-        } else if (sceneY <= 3 * SIZE / 4) {
+        } else if (sceneY <= 3 * GAME_SIZE / 4) {
             yGrid = 2;
         } else {
             yGrid = 3;

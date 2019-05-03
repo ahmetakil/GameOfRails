@@ -1,7 +1,6 @@
 import game.Tile;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import util.Animation;
 import util.fileUtil;
@@ -11,41 +10,65 @@ import java.util.ArrayList;
 
 public class Gui {
 
-    private Tile[][] tiles;
-    private Pane pane;
-    private static int SIZE = gameUtil.SIZE;
+
     private Scene scene;
+    private Tile[][] tiles;
+    private Pane rootPane;
+    private Pane gamePane;
+    private Pane sidePane;
+    private static int GAME_SIZE = gameUtil.GAME_SIZE;
+
     private ArrayList<Tile> swapArray;
+
     double tilePrevX = 0; // X location of tile before dragging.
     double tilePrevY = 0; // Y location of tile before dragging
 
     public Gui(Tile[][] tiles) {
 
         this.tiles = tiles;
-        pane = new Pane();
+
+        rootPane = new Pane();
+
+        scene = new Scene(rootPane, 640, 480); // Creating scene with panes
+
+        gamePane = new Pane();
+        gamePane.setMaxWidth(GAME_SIZE);
+        gamePane.setMaxHeight(GAME_SIZE);
+
+        rootPane.getChildren().addAll(gamePane);
+
+
         for (int row = 0; row < tiles.length; row++) {
             for (int col = 0; col < tiles[row].length; col++) {
 
                 Tile tile = tiles[row][col];
                 tile.setLayoutX(row * 100);
-                pane.setStyle("-fx-background-image: url(\"img/empty.jpeg\"); ");
+                gamePane.setStyle("-fx-background-image: url(\"img/empty.jpeg\"); ");
                 tile.setLayoutY(col * 100);
-                pane.getChildren().add(tile); // iterate through the matrix add all the tiles to the pane
+                gamePane.getChildren().add(tile); // iterate through the matrix add all the tiles to the pane
 
             }
         }
+
         swapArray = new ArrayList<>();
     }
 
 
-    public void showGrid(Stage stage) {
+    public void showGui(Stage stage) {
 
-        scene = new Scene(pane, SIZE, SIZE); // Creating scene with pane
+        showGame();
+        stage.setScene(scene);
+        stage.show();
+
+
+    }
+
+    public void showGame() {
+
         //pane.setStyle("-fx-background-image: url(\"img/emptyFree.jpeg\");");
 
         for (int row = 0; row < tiles.length; row++) {
             for (int col = 0; col < tiles[row].length; col++) {
-
 
                 Tile tile = tiles[col][row];
 
@@ -53,8 +76,8 @@ public class Gui {
 
                      /* Removing then putting the tile back on top to give it top priority
                     otherwise it will go below other tiles.  */
-                    pane.getChildren().remove(tile);
-                    pane.getChildren().add(tile);
+                    gamePane.getChildren().remove(tile);
+                    gamePane.getChildren().add(tile);
                     tilePrevX = tile.getLayoutX();
                     tilePrevY = tile.getLayoutY();
                     swapArray.clear();
@@ -78,23 +101,25 @@ public class Gui {
                         tile.setLayoutY(tilePrevY);
                         return;
                     }
+
                     swapArray.add(swap2);
                     swapTiles(swapArray.get(0), swapArray.get(1));
                     if (gameUtil.isPathConstructed(tiles)) {
 
-                        Animation.playAnimation(pane,gameUtil.getPaths());
-                        Tile[][] nextLevel = fileUtil.createGrid(++Main.LEVEL);
-                        Gui nextGui = new Gui(nextLevel);
-                        Animation.getPathTransition().setOnFinished(event->nextGui.showGrid(stage));
+                        Animation.playAnimation(gamePane, gameUtil.getPaths());
+                        if (Main.LEVEL == 5) {
+                            System.out.println("CONGRATS YOU WIN !");
+                        } else {
+                            Tile[][] nextLevel = fileUtil.createGrid(++Main.LEVEL);
+                            Gui nextGui = new Gui(nextLevel);
+                            Animation.getPathTransition().setOnFinished(event -> nextGui.showGame());
+                        }
                     }
 
                 });
 
             }
         }
-
-        stage.setScene(scene);
-        stage.show();
 
     }
 
@@ -113,8 +138,8 @@ public class Gui {
         double xLayout2 = tile2.getLayoutX();
         double yLayout2 = tile2.getLayoutY();
 
-        pane.getChildren().remove(tile1);
-        pane.getChildren().remove(tile2);
+        gamePane.getChildren().remove(tile1);
+        gamePane.getChildren().remove(tile2);
 
         // SCENE POSITION ASSIGNMENT
         tile1.setLayoutX(xLayout2);
@@ -123,8 +148,8 @@ public class Gui {
         tile2.setLayoutX(tilePrevX);
         tile2.setLayoutY(tilePrevY);
 
-        pane.getChildren().add(tile1);
-        pane.getChildren().add(tile2);
+        gamePane.getChildren().add(tile1);
+        gamePane.getChildren().add(tile2);
 
         // GRID POSITION ASSIGNMENT
         tile1.setxGrid(xGrid2);

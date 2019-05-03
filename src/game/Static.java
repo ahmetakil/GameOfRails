@@ -7,7 +7,7 @@ public class Static extends Pipe {
 
     public Static(int x, int y, boolean upEdge, boolean downEdge, boolean leftEdge, boolean rightEdge) {
 
-        super(x, y, false, upEdge, downEdge, leftEdge, rightEdge);
+        super(x, y, upEdge, downEdge, leftEdge, rightEdge);
         setFill();
     }
 

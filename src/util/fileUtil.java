@@ -103,9 +103,13 @@ public class fileUtil {
 
                             tiles.add(new Static(coordinates[0], coordinates[1], false, false, true, true));
 
-                        } else {
+                        } else if(direction.equalsIgnoreCase("Vertical")) {
 
                             tiles.add(new Static(coordinates[0], coordinates[1], true, true, false, false));
+                        }else{
+                            int first = Integer.parseInt(direction.charAt(0) + "");
+                            int second = Integer.parseInt(direction.charAt(1) + "");
+                            tiles.add(new CurvedStatic(coordinates[0],coordinates[1],first,second));
                         }
 
                         break;
@@ -115,11 +119,11 @@ public class fileUtil {
 
                         if (direction.equalsIgnoreCase("Vertical")) {
 
-                            tiles.add(new Pipe(coordinates[0], coordinates[1], true, true, true, false, false));
+                            tiles.add(new Pipe(coordinates[0], coordinates[1], true, true, false, false));
 
                         } else if (direction.equalsIgnoreCase("Horizontal")) {
 
-                            tiles.add(new Pipe(coordinates[0], coordinates[1], true, false, false, true, true));
+                            tiles.add(new Pipe(coordinates[0], coordinates[1], false, false, true, true));
                         } else {
 
                             int first = Integer.parseInt(direction.charAt(0) + "");

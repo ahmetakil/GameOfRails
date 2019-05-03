@@ -9,9 +9,9 @@ public class Pipe extends Tile {
     private boolean leftEdge;
     private boolean rightEdge;
 
-    public Pipe(int x, int y, boolean movable, boolean upEdge, boolean downEdge, boolean leftEdge, boolean rightEdge) {
+    public Pipe(int x, int y, boolean upEdge, boolean downEdge, boolean leftEdge, boolean rightEdge) {
 
-        super(x, y, movable);
+        super(x, y);
         this.upEdge = upEdge;
         this.downEdge = downEdge;
         this.leftEdge = leftEdge;
