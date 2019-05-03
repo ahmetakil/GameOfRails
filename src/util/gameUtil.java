@@ -2,21 +2,40 @@ package util;
 
 
 import game.*;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.scene.shape.PathElement;
+
+import java.util.ArrayList;
 
 public class gameUtil {
 
     public static final int SIZE = 400;
+    private static ArrayList<PathElement> paths = new ArrayList<>();
+    public static int offset = 40;
 
+    public static ArrayList<PathElement> getPaths() {
+        return paths;
+    }
+
+    /**
+    This method both checks if the pathConstructed
+     then if it is constructed it also creates
+     the path objects that will later be used
+     in path Animation.
+     */
     public static boolean isPathConstructed(Tile[][] tiles) {
 
         int x;
         int y;
-        int leftPriorty = 0,rightPriorty = 0,upPriorty = 0,downPriorty = 0;
+        int leftPriority = 0, rightPriority = 0, upPriority = 0, downPriority = 0;
 
-        int counter = 0; // We say that if we cant find a path in 100 moves we return false.
+        int counter = 0; // We say that if we cant find a path( in 100)+offset moves we return false.
         Pipe starterTile = null;
         Pipe endTile = null;
-        outerLoop:for (int i = 0; i < tiles[0].length; i++) {
+        outerLoop:
+        for (int i = 0; i < tiles[0].length; i++) {
             for (int j = 0; j < tiles.length; j++) {
                 if (tiles[i][j] instanceof Starter) {
                     starterTile = (Pipe) tiles[i][j];
@@ -45,61 +64,69 @@ public class gameUtil {
         int xDiff = x - xTarget;
         int yDiff = y - yTarget;
 
-        upPriorty = yDiff;
-        leftPriorty = xDiff;
+        upPriority = yDiff;
+        leftPriority = xDiff;
 
-        downPriorty = -yDiff;
-        rightPriorty = -xDiff;
+        downPriority = -yDiff;
+        rightPriority = -xDiff;
 
         while (!(tiles[x][y] instanceof End)) {
 
             Tile currentTile = tiles[x][y];
-            if (counter > 100) {
+            if (counter > 100){
                 System.out.println("counter");
                 return false;
             }
 
             counter++;
 
-            if (currentTile.isDownEdge() && downPriorty >= upPriorty) {
+            if (currentTile.isDownEdge() && downPriority >= upPriority) {
                 if (tiles[x][y + 1].isUpEdge()) { //Current pipe is downEdged and pipe below is upEdge() we can move there.
 
                     y++; // Go below
-                    downPriorty--;
-                    upPriorty++;
+                    downPriority--;
+                    upPriority++;
+
+                    paths.add( new LineTo((x * 100)+offset, (y * 100)+offset));
+
                     continue;
 
                 }
             }
 
-            if (currentTile.isRightEdge() && rightPriorty >= leftPriorty) {
+            if (currentTile.isRightEdge() && rightPriority >= leftPriority) {
                 if (tiles[x + 1][y].isLeftEdge()) {
 
                     x++; // Go right
-                    rightPriorty--;
-                    leftPriorty++;
+                    rightPriority--;
+                    leftPriority++;
+
+                    paths.add( new LineTo((x * 100)+offset, (y * 100)+offset));
                     continue;
                 }
             }
 
-            if (currentTile.isUpEdge() && upPriorty >= downPriorty){
+            if (currentTile.isUpEdge() && upPriority >= downPriority) {
                 if (tiles[x][y - 1].isDownEdge()) {
                     y--; // Go up
-                    upPriorty--;
-                    downPriorty++;
+                    upPriority--;
+                    downPriority++;
+
+                    paths.add( new LineTo((x * 100)+offset, (y * 100)+offset));
                     continue;
                 }
             }
 
-            if (currentTile.isLeftEdge() && leftPriorty >= rightPriorty) {
+            if (currentTile.isLeftEdge() && leftPriority >= rightPriority) {
                 if (tiles[x - 1][y].isRightEdge()) {
                     x--; // Go left
-                    leftPriorty--;
-                    rightPriorty++;
+                    leftPriority--;
+                    rightPriority++;
+
+                    paths.add( new LineTo((x * 100)+offset, (y * 100)+offset));
                     continue;
                 }
             }
-
 
 
         }

@@ -3,6 +3,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import util.Animation;
+import util.fileUtil;
 import util.gameUtil;
 
 import java.util.ArrayList;
@@ -11,7 +13,7 @@ public class Gui {
 
     private Tile[][] tiles;
     private Pane pane;
-    static int SIZE = gameUtil.SIZE;
+    private static int SIZE = gameUtil.SIZE;
     private Scene scene;
     private ArrayList<Tile> swapArray;
     double tilePrevX = 0; // X location of tile before dragging.
@@ -39,7 +41,6 @@ public class Gui {
     public void showGrid(Stage stage) {
 
         scene = new Scene(pane, SIZE, SIZE); // Creating scene with pane
-        scene.setFill(Color.rgb(135, 135, 140));
         //pane.setStyle("-fx-background-image: url(\"img/emptyFree.jpeg\");");
 
         for (int row = 0; row < tiles.length; row++) {
@@ -80,7 +81,11 @@ public class Gui {
                     swapArray.add(swap2);
                     swapTiles(swapArray.get(0), swapArray.get(1));
                     if (gameUtil.isPathConstructed(tiles)) {
-                        System.out.println("gg");
+
+                        Animation.playAnimation(pane,gameUtil.getPaths());
+                        Tile[][] nextLevel = fileUtil.createGrid(++Main.LEVEL);
+                        Gui nextGui = new Gui(nextLevel);
+                        Animation.getPathTransition().setOnFinished(event->nextGui.showGrid(stage));
                     }
 
                 });
