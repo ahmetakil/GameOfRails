@@ -4,8 +4,8 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 
 public class Pipe extends Tile {
-    private boolean upEdge;     //Declaring 4 variables for the edges is the in/out or just a wall.
-    private boolean downEdge;   // 1 means the edge has the pipe input output. 0 means not.
+    private boolean upEdge;
+    private boolean downEdge;
     private boolean leftEdge;
     private boolean rightEdge;
 

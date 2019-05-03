@@ -3,8 +3,6 @@ package util;
 
 import game.*;
 import javafx.scene.shape.LineTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
 
 import java.util.ArrayList;
@@ -13,25 +11,25 @@ public class gameUtil {
 
     public static final int SIZE = 400;
     private static ArrayList<PathElement> paths = new ArrayList<>();
-    public static int offset = 40;
 
     public static ArrayList<PathElement> getPaths() {
         return paths;
     }
 
     /**
-    This method both checks if the pathConstructed
-     then if it is constructed it also creates
-     the path objects that will later be used
-     in path Animation.
+     * This method both checks if the pathConstructed
+     * then if it is constructed it also creates
+     * the path objects that will later be used
+     * in path Animation.
      */
     public static boolean isPathConstructed(Tile[][] tiles) {
 
         int x;
         int y;
         int leftPriority = 0, rightPriority = 0, upPriority = 0, downPriority = 0;
+        LastAction lastAction = null;
 
-        int counter = 0; // We say that if we cant find a path( in 100)+offset moves we return false.
+
         Pipe starterTile = null;
         Pipe endTile = null;
         outerLoop:
@@ -45,7 +43,8 @@ public class gameUtil {
         }
 
 
-        outerLoop:for (int i = 0; i < tiles[0].length; i++) {
+        outerLoop:
+        for (int i = 0; i < tiles[0].length; i++) {
             for (int j = 0; j < tiles.length; j++) {
                 if (tiles[i][j] instanceof End) {
                     endTile = (Pipe) tiles[i][j];
@@ -73,58 +72,65 @@ public class gameUtil {
         while (!(tiles[x][y] instanceof End)) {
 
             Tile currentTile = tiles[x][y];
-            if (counter > 100){
-                System.out.println("counter");
-                return false;
-            }
 
-            counter++;
-
-            if (currentTile.isDownEdge() && downPriority >= upPriority) {
+            int offset = 40;
+            if (currentTile.isDownEdge() && downPriority >= upPriority && lastAction != LastAction.UP) {
                 if (tiles[x][y + 1].isUpEdge()) { //Current pipe is downEdged and pipe below is upEdge() we can move there.
 
                     y++; // Go below
                     downPriority--;
                     upPriority++;
-
-                    paths.add( new LineTo((x * 100)+offset, (y * 100)+offset));
+                    lastAction = LastAction.DOWN;
+                    paths.add(new LineTo((x * 100) + offset, (y * 100) + offset));
 
                     continue;
 
+                }else{
+                    paths.clear();
+                    return false;
                 }
             }
 
-            if (currentTile.isRightEdge() && rightPriority >= leftPriority) {
+            if (currentTile.isRightEdge() && rightPriority >= leftPriority && lastAction != LastAction.LEFT) {
                 if (tiles[x + 1][y].isLeftEdge()) {
 
                     x++; // Go right
                     rightPriority--;
                     leftPriority++;
-
-                    paths.add( new LineTo((x * 100)+offset, (y * 100)+offset));
+                    lastAction = LastAction.RIGHT;
+                    paths.add(new LineTo((x * 100) + offset, (y * 100) + offset));
                     continue;
+                }else{
+                    paths.clear();
+                    return false;
                 }
             }
 
-            if (currentTile.isUpEdge() && upPriority >= downPriority) {
+            if (currentTile.isUpEdge() && upPriority >= downPriority && lastAction != LastAction.DOWN) {
                 if (tiles[x][y - 1].isDownEdge()) {
                     y--; // Go up
                     upPriority--;
                     downPriority++;
-
-                    paths.add( new LineTo((x * 100)+offset, (y * 100)+offset));
+                    lastAction = LastAction.UP;
+                    paths.add(new LineTo((x * 100) + offset, (y * 100) + offset));
                     continue;
+                }else{
+                    paths.clear();
+                    return false;
                 }
             }
 
-            if (currentTile.isLeftEdge() && leftPriority >= rightPriority) {
+            if (currentTile.isLeftEdge() && leftPriority >= rightPriority && lastAction != LastAction.RIGHT ) {
                 if (tiles[x - 1][y].isRightEdge()) {
                     x--; // Go left
                     leftPriority--;
                     rightPriority++;
-
-                    paths.add( new LineTo((x * 100)+offset, (y * 100)+offset));
+                    lastAction = LastAction.LEFT;
+                    paths.add(new LineTo((x * 100) + offset, (y * 100) + offset));
                     continue;
+                }else{
+                    paths.clear();
+                    return false;
                 }
             }
 
@@ -204,3 +210,4 @@ public class gameUtil {
         return null;
     }
 }
+

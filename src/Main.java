@@ -6,7 +6,7 @@ import util.fileUtil;
 
 public class Main extends Application {
 
-    public static int LEVEL = 3;
+    public static int LEVEL = 1;
 
     public static void main(String[] args) {
 
@@ -27,11 +27,12 @@ public class Main extends Application {
 }
 
 /**
- extra things
+ TODOS:
     - Play music at the background which is can be closed by user.
     - Key generator for let the user continue to game.
     - Themes can be added from user.
-    - Congratulaitons at the end.
+    - If level is 5  dont try to load level6
+    - Congratulations at the end.
 
 
  */
