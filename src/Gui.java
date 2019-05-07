@@ -3,6 +3,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import util.Animation;
+import util.audioUtil;
 import util.fileUtil;
 import util.gameUtil;
 
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 public class Gui {
 
 
+    private audioUtil util = new audioUtil();
     private Scene scene;
     private Tile[][] tiles;
     private Pane rootPane;
@@ -28,13 +30,16 @@ public class Gui {
         this.tiles = tiles;
 
         rootPane = new Pane();
+        rootPane.setStyle("-fx-background-color:red");
 
-        scene = new Scene(rootPane, 640, 480); // Creating scene with panes
+        scene = new Scene(rootPane, 640, 440); // Creating scene with panes
 
         gamePane = new Pane();
         gamePane.setMaxWidth(GAME_SIZE);
         gamePane.setMaxHeight(GAME_SIZE);
 
+        gamePane.setLayoutX(20);
+        gamePane.setLayoutY(20);
         rootPane.getChildren().addAll(gamePane);
 
 
@@ -65,7 +70,6 @@ public class Gui {
 
     public void showGame() {
 
-        //pane.setStyle("-fx-background-image: url(\"img/emptyFree.jpeg\");");
 
         for (int row = 0; row < tiles.length; row++) {
             for (int col = 0; col < tiles[row].length; col++) {
@@ -74,49 +78,61 @@ public class Gui {
 
                 tile.setOnMousePressed(e -> {
 
+                    if (gameUtil.isSwappableTile(tile)) {
                      /* Removing then putting the tile back on top to give it top priority
                     otherwise it will go below other tiles.  */
-                    gamePane.getChildren().remove(tile);
-                    gamePane.getChildren().add(tile);
-                    tilePrevX = tile.getLayoutX();
-                    tilePrevY = tile.getLayoutY();
-                    swapArray.clear();
-                    swapArray.add(tile);
+                        gamePane.getChildren().remove(tile);
+                        gamePane.getChildren().add(tile);
+                        tilePrevX = tile.getLayoutX();
+                        tilePrevY = tile.getLayoutY();
+                        swapArray.clear();
+                        swapArray.add(tile);
+                    }
 
                 });
 
 
                 tile.setOnMouseDragged(e -> {
-                    tile.setLayoutX(e.getSceneX() - tile.getWidth() / 2);
-                    tile.setLayoutY(e.getSceneY() - tile.getHeight() / 2);
+                    if (gameUtil.isSwappableTile(tile)) {
+                        tile.setLayoutX(e.getSceneX() - tile.getWidth() / 2);
+                        tile.setLayoutY(e.getSceneY() - tile.getHeight() / 2);
 
+                    }
                 });
 
                 tile.setOnMouseReleased(e -> {
-                    Tile swap2 = gameUtil.getTileFromMouse(tiles, e.getSceneX(), e.getSceneY());
 
-                    if (!gameUtil.isSwappableTiles(swapArray.get(0), swap2)) {
 
-                        tile.setLayoutX(tilePrevX);
-                        tile.setLayoutY(tilePrevY);
-                        return;
-                    }
+                            if (gameUtil.isSwappableTile(tile)) {
+                                Tile swap2 = gameUtil.getTileFromMouse(tiles, e.getSceneX(), e.getSceneY());
 
-                    swapArray.add(swap2);
-                    swapTiles(swapArray.get(0), swapArray.get(1));
-                    if (gameUtil.isPathConstructed(tiles)) {
+                                if (!gameUtil.isSwappableTiles(swapArray.get(0), swap2)) {
 
-                        Animation.playAnimation(gamePane, gameUtil.getPaths());
-                        if (Main.LEVEL == 5) {
-                            System.out.println("CONGRATS YOU WIN !");
-                        } else {
-                            Tile[][] nextLevel = fileUtil.createGrid(++Main.LEVEL);
-                            Gui nextGui = new Gui(nextLevel);
-                            Animation.getPathTransition().setOnFinished(event -> nextGui.showGame());
+                                    tile.setLayoutX(tilePrevX);
+                                    tile.setLayoutY(tilePrevY);
+                                    return;
+                                }
+
+                                swapArray.add(swap2);
+                                swapTiles(swapArray.get(0), swapArray.get(1));
+                                if (gameUtil.isPathConstructed(tiles)) {
+
+                                    Animation.playAnimation(gamePane, gameUtil.getPaths());
+                                    if (Main.LEVEL == 5) {
+                                        System.out.println("CONGRATS YOU WIN !");
+                                    } else {
+                                        Tile[][] nextLevel = fileUtil.createGrid(++Main.LEVEL);
+                                        Gui nextGui = new Gui(nextLevel);
+                                        Animation.getPathTransition().setOnFinished(event -> {
+                                            nextGui.showGui(Main.getStage());
+                                            util.playAudio("yes2.aiff");
+                                        });
+                                    }
+                                }
+                            }
                         }
-                    }
 
-                });
+                );
 
             }
         }

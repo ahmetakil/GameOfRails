@@ -27,12 +27,12 @@ public class gameUtil {
 
         int x;
         int y;
-        int leftPriority = 0, rightPriority = 0, upPriority = 0, downPriority = 0;
         LastAction lastAction = null;
 
 
         Pipe starterTile = null;
-        Pipe endTile = null;
+
+        // Finding starting tile
         outerLoop:
         for (int i = 0; i < tiles[0].length; i++) {
             for (int j = 0; j < tiles.length; j++) {
@@ -44,91 +44,68 @@ public class gameUtil {
         }
 
 
-        outerLoop:
-        for (int i = 0; i < tiles[0].length; i++) {
-            for (int j = 0; j < tiles.length; j++) {
-                if (tiles[i][j] instanceof End) {
-                    endTile = (Pipe) tiles[i][j];
-                    break outerLoop;
-                }
-            }
-        }
-
-
-        x = starterTile.getxGrid(); // X or starter tile
+        x = starterTile.getxGrid(); // X of starter tile
         y = starterTile.getyGrid(); // Y of starter tile
 
-        int xTarget = endTile.getxGrid();
-        int yTarget = endTile.getyGrid();
 
-        int xDiff = x - xTarget;
-        int yDiff = y - yTarget;
-
-        upPriority = yDiff;
-        leftPriority = xDiff;
-
-        downPriority = -yDiff;
-        rightPriority = -xDiff;
-
+        /*
+        This loop will iterate until either it finds the end tile or
+            we came across a dead-end which
+         */
         while (!(tiles[x][y] instanceof End)) {
 
             Tile currentTile = tiles[x][y];
-
-            if (currentTile.isDownEdge() && downPriority >= upPriority && lastAction != LastAction.UP) {
+        /*
+        Our current tile is downEdged so we check if the tile below is upEdged if not we immediately return false.
+        Same for all possibilities
+         */
+            if (currentTile.isDownEdge() && lastAction != LastAction.UP) {
                 if (tiles[x][y + 1].isUpEdge()) { //Current pipe is downEdged and pipe below is upEdge() we can move there.
 
                     y++; // Go below
-                    downPriority--;
-                    upPriority++;
                     lastAction = LastAction.DOWN;
                     paths.add(new LineTo((x * 100) + offset, (y * 100) + offset));
 
                     continue;
 
-                }else{
+                } else {
                     paths.clear();
                     return false;
                 }
             }
 
-            if (currentTile.isRightEdge() && rightPriority >= leftPriority && lastAction != LastAction.LEFT) {
+            if (currentTile.isRightEdge() && lastAction != LastAction.LEFT) {
                 if (tiles[x + 1][y].isLeftEdge()) {
 
                     x++; // Go right
-                    rightPriority--;
-                    leftPriority++;
                     lastAction = LastAction.RIGHT;
                     paths.add(new LineTo((x * 100) + offset, (y * 100) + offset));
                     continue;
-                }else{
+                } else {
                     paths.clear();
                     return false;
                 }
             }
 
-            if (currentTile.isUpEdge() && upPriority >= downPriority && lastAction != LastAction.DOWN) {
+            if (currentTile.isUpEdge() && lastAction != LastAction.DOWN) {
                 if (tiles[x][y - 1].isDownEdge()) {
                     y--; // Go up
-                    upPriority--;
-                    downPriority++;
                     lastAction = LastAction.UP;
                     paths.add(new LineTo((x * 100) + offset, (y * 100) + offset));
                     continue;
-                }else{
+                } else {
                     paths.clear();
                     return false;
                 }
             }
 
-            if (currentTile.isLeftEdge() && leftPriority >= rightPriority && lastAction != LastAction.RIGHT ) {
+            if (currentTile.isLeftEdge() && lastAction != LastAction.RIGHT) {
                 if (tiles[x - 1][y].isRightEdge()) {
                     x--; // Go left
-                    leftPriority--;
-                    rightPriority++;
                     lastAction = LastAction.LEFT;
                     paths.add(new LineTo((x * 100) + offset, (y * 100) + offset));
                     continue;
-                }else{
+                } else {
                     paths.clear();
                     return false;
                 }
@@ -138,6 +115,17 @@ public class gameUtil {
         }
         return true;
 
+    }
+    /*
+    Checks for a single tile if that tile is movable
+     */
+    public static boolean isSwappableTile(Tile tile) {
+
+        if (tile instanceof Static || tile instanceof End || tile instanceof Starter || tile instanceof CurvedStatic) {
+
+            return false;
+        }
+        return true;
     }
 
 
@@ -159,19 +147,10 @@ public class gameUtil {
             return false;
         }
 
-        if (tile1 instanceof Static
-                || tile2 instanceof Static
-                || tile1 instanceof End
-                || tile2 instanceof End
-                || tile1 instanceof Starter
-                || tile2 instanceof Starter
-                || tile1 instanceof CurvedStatic
-                || tile2 instanceof CurvedStatic) {
-
-            return false;
-        }
-
-        return true;
+       if(isSwappableTile(tile1) || isSwappableTile(tile2)){
+           return true;
+       }
+       return false;
     }
 
 

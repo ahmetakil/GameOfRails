@@ -1,12 +1,12 @@
 import game.Tile;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import util.audioUtil;
 import util.fileUtil;
 
 public class Main extends Application {
 
     public static int LEVEL = 1;
+    private static Stage primaryStage;
 
     public static void main(String[] args) {
 
@@ -17,16 +17,20 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
 
+        this.primaryStage = primaryStage;
+
         Tile[][] grid = fileUtil.createGrid(LEVEL);
 
         Gui gui = new Gui(grid);
         primaryStage.setResizable(false);
         gui.showGui(primaryStage);
-        audioUtil util = new audioUtil();
-        util.playAudio("yes2.aiff");
+
     }
 
 
+    public static Stage getStage(){
+        return primaryStage;
+    }
 }
 
 /*
