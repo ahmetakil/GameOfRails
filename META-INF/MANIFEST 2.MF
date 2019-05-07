@@ -1,0 +1,4 @@
+<manifest>
+    <attribute name="JavaFX-Application-Class" value="application.MainClass" />
+    <attribute name="Main-Class" value="com/javafx/main/Main" />
+</manifest>

@@ -33,7 +33,6 @@ public class fileUtil {
 
     }
 
-<<<<<<< HEAD:src/gameOfRails/util/fileUtil.java
     public static int getMaxLevel() {
 
         try {
@@ -45,10 +44,6 @@ public class fileUtil {
     }
 
     private static ArrayList<Tile> readText(int level) { // Reading text with level parameter
-=======
-    //TODO Improve Exception handling
-    public static ArrayList<Tile> readText(int level) { // Reading text with level parameter
->>>>>>> 66dac5a... Optimization Update:src/util/fileUtil.java
 
         ArrayList<Tile> tiles = new ArrayList<>();
 
