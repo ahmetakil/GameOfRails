@@ -124,8 +124,8 @@ public class Gui {
                                         Tile[][] nextLevel = fileUtil.createGrid(++Main.LEVEL);
                                         Gui nextGui = new Gui(nextLevel);
                                         Animation.getPathTransition().setOnFinished(event -> {
+
                                             nextGui.showGui(Main.getStage());
-                                            util.playAudio("yes2.aiff");
                                         });
                                     }
                                 }
