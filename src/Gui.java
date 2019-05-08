@@ -1,6 +1,9 @@
 import game.Tile;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import util.*;
 
@@ -64,12 +67,25 @@ public class Gui {
 
 
     public void showGui(Stage stage) {
-
         showGame();
+        showSidePane();
         stage.setScene(scene);
         stage.show();
 
+    }
 
+    public void showSidePane(){
+        sidePane.setStyle("-fx-background-color: green");
+
+        Text currentLevel = new Text(sidePane.getMaxWidth()/2 - 25,sidePane.getMaxHeight()/4,Main.LEVEL + "");
+        currentLevel.setFont(new Font(50));
+        currentLevel.setTextAlignment(TextAlignment.CENTER);
+
+        Text level = new Text(sidePane.getMaxWidth()/2 - 50,sidePane.getMaxHeight()/4 - 50,"LEVEL");
+        level.setFont(new Font(30));
+        level.setTextAlignment(TextAlignment.CENTER);
+
+        sidePane.getChildren().addAll(currentLevel,level);
     }
 
     public void showGame() {
