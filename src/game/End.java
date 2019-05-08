@@ -8,7 +8,7 @@ public class End extends Pipe {
 
     public End(int x, int y, boolean upEdge, boolean downEdge, boolean leftEdge, boolean rightEdge) {
 
-        super(x, y, upEdge, downEdge, leftEdge, rightEdge);
+        super(x, y,false,upEdge, downEdge, leftEdge, rightEdge);
         /*
         We need to call setFill() here again because the constructor takes place before we assign up,down,right,left values
         because of that it it doesn't work the first time (same as static).

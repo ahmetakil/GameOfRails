@@ -8,9 +8,9 @@ public class Curved extends Pipe {
     private int position1;
     private int position2;
 
-    public Curved(int x, int y, int position1, int position2) {
+    public Curved(int x, int y,boolean movable,int position1, int position2) {
 
-        super(x, y, false, false, false, false);
+        super(x, y,movable,false, false, false, false);
         setPosition(position1, position2);
         setFill();
         this.position1 = position1;

@@ -2,17 +2,13 @@ import game.Tile;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import util.Animation;
-import util.audioUtil;
-import util.fileUtil;
-import util.gameUtil;
+import util.*;
 
 import java.util.ArrayList;
 
 public class Gui {
 
 
-    private audioUtil util = new audioUtil();
     private Scene scene;
     private Tile[][] tiles;
     private Pane rootPane;

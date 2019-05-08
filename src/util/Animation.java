@@ -19,7 +19,6 @@ public class Animation {
 
     public static void playAnimation(Pane pane, ArrayList<PathElement> paths) {
 
-        audioUtil util =  new audioUtil();
 
         Rectangle rect = new Rectangle(80, 80);
         rect.setFill(new ImagePattern(new Image("img/cart.jpeg")));
@@ -32,7 +31,6 @@ public class Animation {
 
         pathTransition = new PathTransition();
         pathTransition.setDuration(Duration.seconds(6));
-        util.playAudio("cart.aiff");
         pathTransition.setCycleCount(1);
 
         pathTransition.setNode(rect);

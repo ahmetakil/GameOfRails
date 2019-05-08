@@ -120,12 +120,7 @@ public class gameUtil {
     Checks for a single tile if that tile is movable
      */
     public static boolean isSwappableTile(Tile tile) {
-
-        if (tile instanceof Static || tile instanceof End || tile instanceof Starter || tile instanceof CurvedStatic) {
-
-            return false;
-        }
-        return true;
+        return tile.isMovable();
     }
 
 
@@ -155,40 +150,9 @@ public class gameUtil {
 
 
     public static Tile getTileFromMouse(Tile[][] tiles, double sceneX, double sceneY) {
-
-        int xGrid = 0;
-        int yGrid = 0;
-
-        // Find which tile is clicked by the mouse location.
-        if (sceneX <= GAME_SIZE / 4) {
-            xGrid = 0;
-        } else if (sceneX <= GAME_SIZE / 2) {
-            xGrid = 1;
-        } else if (sceneX <= 3 * GAME_SIZE / 4) {
-            xGrid = 2;
-        } else {
-            xGrid = 3;
-        }
-
-        if (sceneY <= GAME_SIZE / 4) {
-            yGrid = 0;
-        } else if (sceneY <= GAME_SIZE / 2) {
-            yGrid = 1;
-        } else if (sceneY <= 3 * GAME_SIZE / 4) {
-            yGrid = 2;
-        } else {
-            yGrid = 3;
-        }
-
-        for (int row = 0; row < tiles.length; row++) {
-            for (int col = 0; col < tiles[row].length; col++) {
-                Tile tile = tiles[row][col];
-                if (tile.getxGrid() == xGrid && tile.getyGrid() == yGrid) {
-                    return tile;
-                }
-            }
-        }
-        return null;
+        int xGrid = (int) (sceneX-1)/(GAME_SIZE/4);
+        int yGrid = (int) (sceneY-1)/(GAME_SIZE/4);
+        return tiles[xGrid][yGrid];
     }
 }
 

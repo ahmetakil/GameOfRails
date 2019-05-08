@@ -9,13 +9,15 @@ import javafx.scene.shape.Rectangle;
 public abstract class Tile extends Rectangle{
     private int xGrid; // Location of the tile at x-axis in the grid pane
     private int yGrid; // Location of the tile at y-axis in the grid pane
+    private boolean movable;
     private Image image;
 
 
-    public Tile(int x, int y) { //Construction of the object
+    public Tile(int x, int y,boolean movable) { //Construction of the object
        super(100,100);
         this.xGrid = x;
         this.yGrid = y;
+        this.movable = movable;
         this.image = new Image("img/empty.jpeg");
         setFill();
         setStroke(Color.WHITE);
@@ -34,6 +36,7 @@ public abstract class Tile extends Rectangle{
     public abstract void setRightEdge(boolean rightEdge);
     public abstract void setDownEdge(boolean downEdge);
 
+    public boolean isMovable(){return movable;}
 
     public void setFill(){
         this.setFill(new ImagePattern(this.image));

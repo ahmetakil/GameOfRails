@@ -7,7 +7,7 @@ public class Starter extends Pipe {
 
     public Starter(int x, int y, boolean upEdge, boolean downEdge, boolean leftEdge, boolean rightEdge) {
 
-        super(x, y, upEdge, downEdge, leftEdge, rightEdge);
+        super(x, y,false,upEdge, downEdge, leftEdge, rightEdge);
         setFill();
 
     }
