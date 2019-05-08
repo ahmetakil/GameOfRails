@@ -30,7 +30,7 @@ public class Animation {
         pane.getChildren().add(rect);
 
         pathTransition = new PathTransition();
-        pathTransition.setDuration(Duration.seconds(6));
+        pathTransition.setDuration(Duration.seconds(2));
         pathTransition.setCycleCount(1);
 
         pathTransition.setNode(rect);

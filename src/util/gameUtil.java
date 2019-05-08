@@ -115,6 +115,7 @@ public class gameUtil {
         return true;
 
     }
+
     /*
     Checks for a single tile if that tile is movable
      */
@@ -132,8 +133,7 @@ public class gameUtil {
 
         int xGrid1 = tile1.getxGrid();
         int yGrid1 = tile1.getyGrid();
-        int xGrid2;
-        xGrid2 = tile2.getxGrid();
+        int xGrid2 = tile2.getxGrid();
 
         int yGrid2 = tile2.getyGrid();
 
@@ -141,16 +141,24 @@ public class gameUtil {
             return false;
         }
 
-       if(isSwappableTile(tile1) || isSwappableTile(tile2)){
-           return true;
-       }
-       return false;
+        if (isSwappableTile(tile1) && isSwappableTile(tile2)) {
+            return true;
+        }
+
+        return false;
     }
 
     public static Tile getTileFromMouse(Tile[][] tiles, double sceneX, double sceneY) {
-        int xGrid = (int) (sceneX-1)/(GAME_SIZE/4);
-        int yGrid = (int) (sceneY-1)/(GAME_SIZE/4);
+
+
+        int xGrid = (int) (sceneX - 1) / (GAME_SIZE / 4);
+        int yGrid = (int) (sceneY - 1) / (GAME_SIZE / 4);
+        if (xGrid < 0 || xGrid > 3 || yGrid < 0 || yGrid > 3) {
+            return null;
+        }
         return tiles[xGrid][yGrid];
+
+
     }
 }
 

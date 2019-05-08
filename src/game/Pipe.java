@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 
 public class Pipe extends Tile {
+
     private boolean upEdge;
     private boolean downEdge;
     private boolean leftEdge;
@@ -22,10 +23,14 @@ public class Pipe extends Tile {
     @Override
     public void setFill() {
 
-        if(isHorizontal()) {
+        if(isHorizontal() && isMovable()) {
             this.setFill(new ImagePattern(new Image("img/pipeHorizontal.jpeg")));
-        }else{
+        }else if(isHorizontal() && !isMovable()){
+            this.setFill(new ImagePattern(new Image("img/staticHorizontal.jpeg")));
+        }else if(!isHorizontal() && isMovable()){
             this.setFill(new ImagePattern(new Image("img/pipeVertical.jpeg")));
+        }else if(!isHorizontal() && !isMovable()){
+            this.setFill(new ImagePattern(new Image("img/staticVertical.jpeg")));
         }
     }
 

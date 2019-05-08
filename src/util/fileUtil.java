@@ -35,7 +35,7 @@ public class fileUtil {
     }
 
 
-     private static ArrayList<Tile> readText(int level) { // Reading text with level parameter
+    private static ArrayList<Tile> readText(int level) { // Reading text with level parameter
 
         ArrayList<Tile> tiles = new ArrayList<>();
 
@@ -52,7 +52,7 @@ public class fileUtil {
                 }
                 String[] lineContents = line.split(","); // [id, type , property]
                 int position = Integer.parseInt(lineContents[0]);
-                int[] coordinates = calculateCoordinatesfromPos(position);
+                int[] coordinates = calculateCoordinatesFromPos(position);
                 String type = lineContents[1];
                 String direction = lineContents[2];
 
@@ -101,15 +101,15 @@ public class fileUtil {
 
                         if (direction.equalsIgnoreCase("Horizontal")) {
 
-                            tiles.add(new Pipe(coordinates[0], coordinates[1],false,false, false, true, true));
+                            tiles.add(new Pipe(coordinates[0], coordinates[1], false, false, false, true, true));
 
-                        } else if(direction.equalsIgnoreCase("Vertical")) {
+                        } else if (direction.equalsIgnoreCase("Vertical")) {
 
-                            tiles.add(new Pipe(coordinates[0], coordinates[1],false,true, true, false, false));
-                        }else{
+                            tiles.add(new Pipe(coordinates[0], coordinates[1], false, true, true, false, false));
+                        } else {
                             int first = Integer.parseInt(direction.charAt(0) + "");
                             int second = Integer.parseInt(direction.charAt(1) + "");
-                            tiles.add(new Curved(coordinates[0],coordinates[1],false,first,second));
+                            tiles.add(new Curved(coordinates[0], coordinates[1], false, first, second));
                         }
 
                         break;
@@ -119,17 +119,17 @@ public class fileUtil {
 
                         if (direction.equalsIgnoreCase("Vertical")) {
 
-                            tiles.add(new Pipe(coordinates[0], coordinates[1],true ,true, true, false, false));
+                            tiles.add(new Pipe(coordinates[0], coordinates[1], true, true, true, false, false));
 
                         } else if (direction.equalsIgnoreCase("Horizontal")) {
 
-                            tiles.add(new Pipe(coordinates[0], coordinates[1],true,false, false, true, true));
+                            tiles.add(new Pipe(coordinates[0], coordinates[1], true, false, false, true, true));
                         } else {
 
                             int first = Integer.parseInt(direction.charAt(0) + "");
                             int second = Integer.parseInt(direction.charAt(1) + "");
 
-                            tiles.add(new Curved(coordinates[0], coordinates[1],true,first, second));
+                            tiles.add(new Curved(coordinates[0], coordinates[1], true, first, second));
                         }
                         break;
 
@@ -145,7 +145,7 @@ public class fileUtil {
     }
 
     // Calculate x and y values from position (Ex : 5 > x: 1 y:1)
-    private static int[] calculateCoordinatesfromPos(int position) {
+    private static int[] calculateCoordinatesFromPos(int position) {
 
         int x = (position - 1) % 4;
         int y = (position - 1) / 4;

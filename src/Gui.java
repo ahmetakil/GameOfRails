@@ -1,6 +1,7 @@
 import game.Tile;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -21,32 +22,34 @@ public class Gui {
 
     private ArrayList<Tile> swapArray;
 
-    double tilePrevX = 0; // X location of tile before dragging.
-    double tilePrevY = 0; // Y location of tile before dragging
+    private double tilePrevX = 0; // X location of tile before dragging used for swapping tiles.
+    private double tilePrevY = 0; // Y location of tile before dragging used for swapping tiles.
 
     public Gui(Tile[][] tiles) {
 
+
         this.tiles = tiles;
 
+        // rootPane is our global pane that holds gamePane and sidePane
         rootPane = new Pane();
-        rootPane.setStyle("-fx-background-color:red");
+        rootPane.setStyle("-fx-background-color:#ffab65");
+
 
         scene = new Scene(rootPane, 640, 440); // Creating scene with panes
 
+        // gamePane is  playable pane that holds the grid.
         gamePane = new Pane();
         gamePane.setMaxWidth(GAME_SIZE);
         gamePane.setMaxHeight(GAME_SIZE);
+        gamePane.setLayoutX(10);
+        gamePane.setLayoutY(20);
 
+        // sidePane is the information pane that holds level , number of moves and all of those.
         sidePane = new Pane();
         sidePane.setMaxWidth(GAME_SIZE / 2);
         sidePane.setMaxHeight(GAME_SIZE);
 
-
-        gamePane.setLayoutX(20);
-        gamePane.setLayoutY(20);
-
-
-        sidePane.setLayoutX(20 + GAME_SIZE + 20);
+        sidePane.setLayoutX(20 + GAME_SIZE);
         sidePane.setLayoutY(20);
 
         rootPane.getChildren().addAll(sidePane, gamePane);
@@ -57,10 +60,9 @@ public class Gui {
 
                 Tile tile = tiles[row][col];
                 tile.setLayoutX(row * 100);
-                gamePane.setStyle("-fx-background-image: url(\"img/empty.jpeg\"); ");
+                gamePane.setStyle("-fx-background-image: url(img/empty.jpeg)");
                 tile.setLayoutY(col * 100);
                 gamePane.getChildren().add(tile); // iterate through the matrix add all the tiles to the pane
-
             }
         }
 
@@ -77,59 +79,87 @@ public class Gui {
     }
 
     public void showSidePane() {
-        sidePane.setStyle("-fx-background-color: green");
 
+        sidePane.setStyle("-fx-background-color: #0eadaf");
+
+        // LEVEL LABEL
+        Text level = new Text(sidePane.getMaxWidth() / 2 - 50, sidePane.getMaxHeight() / 4 - 50, "LEVEL");
+        level.setFont(new Font(30));
+        level.setTextAlignment(TextAlignment.CENTER);
+
+        // Current Level
         Text currentLevel = new Text(sidePane.getMaxWidth() / 2 - 25, sidePane.getMaxHeight() / 4, Main.LEVEL + "");
         currentLevel.setFont(new Font(50));
         currentLevel.setTextAlignment(TextAlignment.CENTER);
 
-        Text level = new Text(sidePane.getMaxWidth() / 2 - 50, sidePane.getMaxHeight() / 4 - 50, "LEVEL");
-        level.setFont(new Font(30));
-        level.setTextAlignment(TextAlignment.CENTER);
+        // Number Of Moves
+        Text numberOfMoves = new Text(sidePane.getMaxWidth() / 2 - 50, sidePane.getMaxHeight() / 4 - 50, "MOVES");
+        numberOfMoves.setFont(new Font(30));
+        numberOfMoves.setTextAlignment(TextAlignment.CENTER);
+
+        // Current Number of Level
+        Text currentNumberMoves = new Text(sidePane.getMaxWidth() / 2 - 25, sidePane.getMaxHeight() / 4, Main.NUMBER_OF_MOVES + "");
+        currentNumberMoves.setFont(new Font(50));
+        currentNumberMoves.setTextAlignment(TextAlignment.CENTER);
+        currentNumberMoves.textProperty().bind(Main.NUMBER_OF_MOVES.asString());
+
+
+        // VBox declaration to use in sidePane.
+        VBox vbox = new VBox();
+        vbox.setPrefWidth(200);
+        vbox.setPrefHeight(400);
+        vbox.alignmentProperty().set(Pos.CENTER);
+        vbox.getChildren().addAll(level, currentLevel, numberOfMoves, currentNumberMoves);
+
+        sidePane.getChildren().add(vbox);
 
         sidePane.getChildren().addAll(currentLevel, level);
     }
 
     public void showGame() {
 
+        // Iterate through all the tiles and set their event handlers.
         for (int row = 0; row < tiles.length; row++) {
             for (int col = 0; col < tiles[row].length; col++) {
 
                 Tile tile = tiles[col][row];
 
                 tile.setOnMousePressed(e -> {
+
+                    tilePrevX = tile.getLayoutX();
+                    tilePrevY = tile.getLayoutY();
                     if (gameUtil.isSwappableTile(tile)) {
                      /* Removing then putting the tile back on top to give it top priority
                     otherwise it will go below other tiles.  */
                         gamePane.getChildren().remove(tile);
                         gamePane.getChildren().add(tile);
-                        tilePrevX = tile.getLayoutX();
-                        tilePrevY = tile.getLayoutY();
+
                         swapArray.clear();
                         swapArray.add(tile);
-                    } else {
-                        //Error music can come
-                        System.out.println("Unmovable Tile");
                     }
                 });
 
+                // While dragging constantly update the tiles x-y values according to mouse.
                 tile.setOnMouseDragged(e -> {
                     if (gameUtil.isSwappableTile(tile)) {
                         tile.setLayoutX(e.getSceneX() - tile.getWidth() / 2 - 10);
                         tile.setLayoutY(e.getSceneY() - tile.getHeight() / 2 - 10);
 
                     }
+
                 });
-
+                /*
+                 When released first check if there is a proper tile at mouse locations then
+                 swap the tiles and check if the pathConstructed if it is play the animation
+                 and continue to the next level.
+                 */
                 tile.setOnMouseReleased(e -> {
-
-
-                            if (e.getSceneX() > 20 && e.getSceneX() < 420 && e.getSceneY() > 20 && e.getSceneY() < 420) {
+                            if (e.getSceneX() > 10 && e.getSceneX() < 420 && e.getSceneY() > 10 && e.getSceneY() < 420) {
 
                                 if (gameUtil.isSwappableTile(tile)) {
                                     Tile swap2 = gameUtil.getTileFromMouse(tiles, e.getSceneX(), e.getSceneY());
 
-                                    if (!gameUtil.isSwappableTiles(swapArray.get(0), swap2)) {
+                                    if (swap2 == null || !gameUtil.isSwappableTiles(swapArray.get(0), swap2)) {
 
                                         tile.setLayoutX(tilePrevX);
                                         tile.setLayoutY(tilePrevY);
@@ -138,9 +168,11 @@ public class Gui {
 
                                     swapArray.add(swap2);
                                     swapTiles(swapArray.get(0), swapArray.get(1));
+
                                     if (gameUtil.isPathConstructed(tiles)) {
 
                                         Animation.playAnimation(gamePane, gameUtil.getPaths());
+
                                         if (Main.LEVEL == 5) {
                                             System.out.println("CONGRATS YOU WIN !");
                                         } else {
@@ -148,11 +180,12 @@ public class Gui {
                                             Gui nextGui = new Gui(nextLevel);
                                             Animation.getPathTransition().setOnFinished(event -> {
                                                 nextGui.showGui(Main.getStage());
+                                                Main.NUMBER_OF_MOVES.set(0);
                                             });
                                         }
                                     }
                                 }
-                            }else{
+                            } else {
                                 tile.setLayoutX(tilePrevX);
                                 tile.setLayoutY(tilePrevY);
                             }
@@ -165,8 +198,10 @@ public class Gui {
 
     private void swapTiles(Tile tile1, Tile tile2) {
 
-        /**These Grid assignments are for out arbitrary grid positions
+        /*
+         * These Grid assignments are for our tiles[][] grid positions
          * layout positions are for replacing them in the pane
+         *
          * */
         int xGrid1 = tile1.getxGrid();
         int yGrid1 = tile1.getyGrid();
@@ -174,6 +209,13 @@ public class Gui {
         int xGrid2 = tile2.getxGrid();
         int yGrid2 = tile2.getyGrid();
 
+        if (xGrid1 == xGrid2 && yGrid1 == yGrid2) {
+            tile2.setLayoutX(tilePrevX);
+            tile2.setLayoutY(tilePrevY);
+            return;
+        }
+
+        Main.NUMBER_OF_MOVES.setValue(Main.NUMBER_OF_MOVES.add(1).getValue());
 
         double xLayout2 = tile2.getLayoutX();
         double yLayout2 = tile2.getLayoutY();

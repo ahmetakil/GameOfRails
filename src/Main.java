@@ -1,10 +1,13 @@
 import game.Tile;
 import javafx.application.Application;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.stage.Stage;
 import util.fileUtil;
 
 public class Main extends Application {
 
+    public static IntegerProperty NUMBER_OF_MOVES = new SimpleIntegerProperty(0);
     public static int LEVEL = 1;
     private static Stage primaryStage;
 
