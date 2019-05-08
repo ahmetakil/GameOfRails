@@ -111,7 +111,6 @@ public class gameUtil {
                 }
             }
 
-
         }
         return true;
 
@@ -147,7 +146,6 @@ public class gameUtil {
        }
        return false;
     }
-
 
     public static Tile getTileFromMouse(Tile[][] tiles, double sceneX, double sceneY) {
         int xGrid = (int) (sceneX-1)/(GAME_SIZE/4);

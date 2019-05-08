@@ -36,7 +36,15 @@ public class Gui {
 
         gamePane.setLayoutX(20);
         gamePane.setLayoutY(20);
-        rootPane.getChildren().addAll(gamePane);
+
+        sidePane = new Pane();
+        sidePane.setMaxWidth(GAME_SIZE/2);
+        sidePane.setMaxHeight(GAME_SIZE);
+
+        sidePane.setLayoutX(20 + GAME_SIZE + 20);
+        sidePane.setLayoutY(20);
+
+        rootPane.getChildren().addAll(gamePane,sidePane);
 
 
         for (int row = 0; row < tiles.length; row++) {
@@ -66,14 +74,12 @@ public class Gui {
 
     public void showGame() {
 
-
         for (int row = 0; row < tiles.length; row++) {
             for (int col = 0; col < tiles[row].length; col++) {
 
                 Tile tile = tiles[col][row];
 
                 tile.setOnMousePressed(e -> {
-
                     if (gameUtil.isSwappableTile(tile)) {
                      /* Removing then putting the tile back on top to give it top priority
                     otherwise it will go below other tiles.  */
@@ -84,20 +90,21 @@ public class Gui {
                         swapArray.clear();
                         swapArray.add(tile);
                     }
-
+                    else {
+                        //Error music can come
+                        System.out.println("Unmovable Tile");
+                    }
                 });
-
 
                 tile.setOnMouseDragged(e -> {
                     if (gameUtil.isSwappableTile(tile)) {
-                        tile.setLayoutX(e.getSceneX() - tile.getWidth() / 2);
-                        tile.setLayoutY(e.getSceneY() - tile.getHeight() / 2);
+                        tile.setLayoutX(e.getSceneX() - tile.getWidth() / 2 - 10);
+                        tile.setLayoutY(e.getSceneY() - tile.getHeight() / 2 - 10);
 
                     }
                 });
 
                 tile.setOnMouseReleased(e -> {
-
 
                             if (gameUtil.isSwappableTile(tile)) {
                                 Tile swap2 = gameUtil.getTileFromMouse(tiles, e.getSceneX(), e.getSceneY());
@@ -120,7 +127,6 @@ public class Gui {
                                         Tile[][] nextLevel = fileUtil.createGrid(++Main.LEVEL);
                                         Gui nextGui = new Gui(nextLevel);
                                         Animation.getPathTransition().setOnFinished(event -> {
-
                                             nextGui.showGui(Main.getStage());
                                         });
                                     }
@@ -129,13 +135,11 @@ public class Gui {
                         }
 
                 );
-
             }
         }
-
     }
 
-    private boolean swapTiles(Tile tile1, Tile tile2) {
+    private void swapTiles(Tile tile1, Tile tile2) {
 
         /**These Grid assignments are for out arbitrary grid positions
          * layout positions are for replacing them in the pane
@@ -175,7 +179,6 @@ public class Gui {
         tiles[xGrid2][yGrid2] = tile1;
 
         swapArray.clear();
-        return true;
     }
 
 }
