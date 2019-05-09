@@ -1,7 +1,10 @@
+import game.Free;
 import game.Tile;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -59,14 +62,15 @@ public class Gui {
         sidePane.setLayoutY(20);
 
         rootPane.getChildren().addAll(sidePane, gamePane);
-
+        BackgroundImage gameBackground = new BackgroundImage(new Image("img/emptyFree.jpeg"), BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+        gamePane.setBackground(new Background(gameBackground));
 
         for (int row = 0; row < tiles.length; row++) {
             for (int col = 0; col < tiles[row].length; col++) {
 
                 Tile tile = tiles[row][col];
                 tile.setLayoutX(row * 100);
-                gamePane.setStyle("-fx-background-image: url(img/empty.jpeg)");
+
                 tile.setLayoutY(col * 100);
                 gamePane.getChildren().add(tile); // iterate through the matrix add all the tiles to the pane
             }
@@ -75,28 +79,46 @@ public class Gui {
         swapArray = new ArrayList<>();
     }
 
-
+    // This method clears the pane and sets our default root pane.
     public void showGui(Stage stage) {
         showGame();
         showSidePane();
         showEntryPane();
-        stage.setScene(entryScene);
+        stage.setScene(gameScene);
         stage.show();
     }
 
+    // We call this function only at the beginning to crete the login screen.
     public void showEntryPane(){
         entryPane.setMaxHeight(440);
         entryPane.setMaxWidth(640);
+        BorderPane borderPane = new BorderPane();
+
         Text text = new Text(entryPane.getMaxHeight()/2,entryPane.getMaxWidth()/2,"Game Of Rails");
         text.setFont(new Font(50));
         text.setTextAlignment(TextAlignment.CENTER);
-        entryPane.getChildren().addAll(text);
-        Button button = new Button("ok");
+
+        Button button = new Button("LAUNCH");
+
+        // Creating borderPane to put our text and button on login screen
+        borderPane.setMinSize(640, 440);
+        borderPane.setCenter(text);
+        borderPane.setBottom(button);
+
+        //Using static borderPane methods to adjust the settings.
+        BorderPane.setAlignment(button, Pos.CENTER);
+        BorderPane.setMargin(button, new Insets(5,5,50,5));
+
+
+        entryPane.getChildren().add(borderPane);
+        button.setOnMousePressed(e-> showGui(Main.getStage()));
+        Main.getStage().setScene(entryScene);
+        Main.getStage().show();
     }
 
     public void showSidePane() {
 
-        sidePane.setStyle("-fx-background-image: url(img/empty.jpeg)");
+        sidePane.setStyle("-fx-background-image: url(img/emptyFree.jpeg)");
 
         Text level = new Text(sidePane.getMaxWidth() / 2 - 50, sidePane.getMaxHeight() / 4 - 50, "LEVEL");
         level.setFont(new Font(30));
@@ -132,9 +154,9 @@ public class Gui {
 
         sidePane.getChildren().add(vbox);
 
-        sidePane.getChildren().addAll(currentLevel, level);
     }
 
+    // This method is responsible for creating the gamePane and adding all the events.
     public void showGame() {
 
         // Iterate through all the tiles and set their event handlers.
@@ -146,7 +168,7 @@ public class Gui {
                 tile.setOnMousePressed(e -> {
                     tilePrevX = tile.getLayoutX();
                     tilePrevY = tile.getLayoutY();
-                    if (gameUtil.isSwappableTile(tile)) {
+                    if (!(tile instanceof Free) && gameUtil.isSwappableTile(tile)) {
                      /* Removing then putting the tile back on top to give it top priority
                     otherwise it will go below other tiles.  */
                         gamePane.getChildren().remove(tile);
@@ -159,7 +181,7 @@ public class Gui {
 
                 // While dragging constantly update the tiles x-y values according to mouse.
                 tile.setOnMouseDragged(e -> {
-                    if (gameUtil.isSwappableTile(tile)) {
+                    if (!(tile instanceof Free) && gameUtil.isSwappableTile(tile)) {
                         tile.setLayoutX(e.getSceneX() - tile.getWidth() / 2 - 10);
                         tile.setLayoutY(e.getSceneY() - tile.getHeight() / 2 - 10);
 
@@ -177,8 +199,12 @@ public class Gui {
                                 if (gameUtil.isSwappableTile(tile)) {
                                     Tile swap2 = gameUtil.getTileFromMouse(tiles, e.getSceneX(), e.getSceneY());
 
-                                    if (swap2 == null || !gameUtil.isSwappableTiles(swapArray.get(0), swap2)) {
+                                        if(swapArray.isEmpty()){
+                                            return;
+                                        }
 
+                                    if (swap2 == null || !gameUtil.isSwappableTiles(swapArray.get(0), swap2)) {
+                                        swapArray.clear();
                                         tile.setLayoutX(tilePrevX);
                                         tile.setLayoutY(tilePrevY);
                                         return;
@@ -206,6 +232,7 @@ public class Gui {
                             } else {
                                 tile.setLayoutX(tilePrevX);
                                 tile.setLayoutY(tilePrevY);
+                                swapArray.clear();
                             }
                         }
 

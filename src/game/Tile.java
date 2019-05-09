@@ -18,7 +18,7 @@ public abstract class Tile extends Rectangle {
         this.xGrid = x;
         this.yGrid = y;
         this.movable = movable;
-        this.image = new Image("img/empty.jpeg");
+        this.image = new Image("emptyFree.jpeg");
         setFill();
         setStroke(Color.WHITE);
 

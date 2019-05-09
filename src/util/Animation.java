@@ -26,11 +26,10 @@ public class Animation {
         Rectangle rect = new Rectangle(80, 80);
         rect.setFill(new ImagePattern(new Image("img/cart.jpeg")));
 
-        double starterX = 0;
+        double starterX = 0; // Grid x-y position of starterTile
         double starterY = 0;
 
-        /*
-        Find the starter tile from pane to
+        /*Find the starter tile from pane to
         find the animation start location.
          */
         for(Node node:pane.getChildren()) {

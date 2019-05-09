@@ -26,7 +26,7 @@ public class Main extends Application {
 
         Gui gui = new Gui(grid);
         primaryStage.setResizable(false);
-        gui.showGui(primaryStage);
+        gui.showEntryPane();
 
     }
 
