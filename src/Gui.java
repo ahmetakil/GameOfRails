@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -13,6 +14,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import util.*;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class Gui {
@@ -92,17 +94,27 @@ public class Gui {
     public void showEntryPane(){
         entryPane.setMaxHeight(440);
         entryPane.setMaxWidth(640);
+
+        Image backScreen = new Image(new File("src/img/train.gif").toURI().toString());
+        ImageView imageView = new ImageView(backScreen);
+        imageView.setFitHeight(440);
+        imageView.setFitWidth(640);
+        entryPane.getChildren().addAll(imageView);
+
         BorderPane borderPane = new BorderPane();
 
-        Text text = new Text(entryPane.getMaxHeight()/2,entryPane.getMaxWidth()/2,"Game Of Rails");
-        text.setFont(new Font(50));
-        text.setTextAlignment(TextAlignment.CENTER);
+        Image gameName = new Image(new File("src/img/gameName.png").toURI().toString());
+        ImageView gameNameImage = new ImageView(gameName);
+        gameNameImage.setX(entryPane.getMaxWidth()/2- 301);
+        gameNameImage.setY(entryPane.getMaxHeight()/2 -33);
+        gameNameImage.setFitWidth(602);
+        gameNameImage.setFitHeight(66);
+        entryPane.getChildren().addAll(gameNameImage);
 
-        Button button = new Button("LAUNCH");
+        Button button = new Button("PLAY");
 
         // Creating borderPane to put our text and button on login screen
         borderPane.setMinSize(640, 440);
-        borderPane.setCenter(text);
         borderPane.setBottom(button);
 
         //Using static borderPane methods to adjust the settings.
