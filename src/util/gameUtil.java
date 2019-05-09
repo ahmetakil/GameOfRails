@@ -142,7 +142,7 @@ public class gameUtil {
             return false;
         }
 
-        if (isSwappableTile(tile1) && isSwappableTile(tile2)) {
+        if (isSwappableTile(tile1) || isSwappableTile(tile2)) {
             return true;
         }
 

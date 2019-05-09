@@ -5,8 +5,8 @@ import javafx.scene.paint.ImagePattern;
 
 public class EmptyTile extends Tile {
 
-    public EmptyTile(int x, int y) {
-        super(x, y,true);
+    public EmptyTile(int x, int y,boolean movable) {
+        super(x, y,movable);
     }
 
     @Override
