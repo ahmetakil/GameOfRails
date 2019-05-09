@@ -14,11 +14,12 @@ import java.util.ArrayList;
 public class Gui {
 
 
-    private Scene scene;
+    private Scene gameScene,entryScene,finalScene;
     private Tile[][] tiles;
     private Pane rootPane;
     private Pane gamePane;
     private Pane sidePane;
+    private Pane entryPane;
     private static int GAME_SIZE = gameUtil.GAME_SIZE;
 
     private ArrayList<Tile> swapArray;
@@ -31,12 +32,15 @@ public class Gui {
 
         this.tiles = tiles;
 
+        entryPane = new Pane();
+        entryPane.setStyle("-fx-background-color:#f84cff");
+
         // rootPane is our global pane that holds gamePane and sidePane
         rootPane = new Pane();
         rootPane.setStyle("-fx-background-color:#000000");
 
-
-        scene = new Scene(rootPane, 640, 440); // Creating scene with panes
+        entryScene = new Scene(entryPane,640,440);
+        gameScene = new Scene(rootPane, 640, 440); // Creating gameScene with panes
 
         // gamePane is  playable pane that holds the grid.
         gamePane = new Pane();
@@ -74,9 +78,15 @@ public class Gui {
     public void showGui(Stage stage) {
         showGame();
         showSidePane();
-        stage.setScene(scene);
+        showEntryPane();
+        stage.setScene(gameScene);
         stage.show();
+    }
 
+    public void showEntryPane(){
+        Text text = new Text(50,50,"Game Of Rails");
+        text.setFont(new Font(50));
+        entryPane.getChildren().addAll(text);
     }
 
     public void showSidePane() {

@@ -98,7 +98,7 @@ public class fileUtil {
 
                         } else {
 
-                            tiles.add(new EmptyTile(coordinates[0], coordinates[1],false));
+                            tiles.add(new EmptyTile(coordinates[0], coordinates[1],true));
                         }
                         break;
 
