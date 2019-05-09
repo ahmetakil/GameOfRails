@@ -1,6 +1,7 @@
 import game.Tile;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -79,14 +80,18 @@ public class Gui {
         showGame();
         showSidePane();
         showEntryPane();
-        stage.setScene(gameScene);
+        stage.setScene(entryScene);
         stage.show();
     }
 
     public void showEntryPane(){
-        Text text = new Text(50,50,"Game Of Rails");
+        entryPane.setMaxHeight(440);
+        entryPane.setMaxWidth(640);
+        Text text = new Text(entryPane.getMaxHeight()/2,entryPane.getMaxWidth()/2,"Game Of Rails");
         text.setFont(new Font(50));
+        text.setTextAlignment(TextAlignment.CENTER);
         entryPane.getChildren().addAll(text);
+        Button button = new Button("ok");
     }
 
     public void showSidePane() {
