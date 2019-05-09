@@ -34,6 +34,11 @@ public class fileUtil {
 
     }
 
+    public static int getMaxLevel(){
+
+        File file = new File("levels/");
+        return file.listFiles().length;
+    }
 
     private static ArrayList<Tile> readText(int level) { // Reading text with level parameter
 
@@ -41,7 +46,7 @@ public class fileUtil {
 
         try {
 
-            File file = new File("level" + level + ".txt");
+            File file = new File("levels/level" + level + ".txt");
             Scanner scanner = new Scanner(file);
 
             while (scanner.hasNext()) {

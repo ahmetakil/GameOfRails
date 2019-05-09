@@ -2,6 +2,7 @@ import game.Tile;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -32,7 +33,7 @@ public class Gui {
 
         // rootPane is our global pane that holds gamePane and sidePane
         rootPane = new Pane();
-        rootPane.setStyle("-fx-background-color:#ffab65");
+        rootPane.setStyle("-fx-background-color:#000000");
 
 
         scene = new Scene(rootPane, 640, 440); // Creating scene with panes
@@ -80,28 +81,31 @@ public class Gui {
 
     public void showSidePane() {
 
-        sidePane.setStyle("-fx-background-color: #0eadaf");
+        sidePane.setStyle("-fx-background-image: url(img/empty.jpeg)");
 
-        // LEVEL LABEL
         Text level = new Text(sidePane.getMaxWidth() / 2 - 50, sidePane.getMaxHeight() / 4 - 50, "LEVEL");
         level.setFont(new Font(30));
         level.setTextAlignment(TextAlignment.CENTER);
+        level.setFill(Color.valueOf("ecff82"));
 
         // Current Level
         Text currentLevel = new Text(sidePane.getMaxWidth() / 2 - 25, sidePane.getMaxHeight() / 4, Main.LEVEL + "");
         currentLevel.setFont(new Font(50));
         currentLevel.setTextAlignment(TextAlignment.CENTER);
+        currentLevel.setFill(Color.valueOf("ecff82"));
 
         // Number Of Moves
         Text numberOfMoves = new Text(sidePane.getMaxWidth() / 2 - 50, sidePane.getMaxHeight() / 4 - 50, "MOVES");
         numberOfMoves.setFont(new Font(30));
         numberOfMoves.setTextAlignment(TextAlignment.CENTER);
+        numberOfMoves.setFill(Color.valueOf("ecff82"));
 
         // Current Number of Level
         Text currentNumberMoves = new Text(sidePane.getMaxWidth() / 2 - 25, sidePane.getMaxHeight() / 4, Main.NUMBER_OF_MOVES + "");
         currentNumberMoves.setFont(new Font(50));
         currentNumberMoves.setTextAlignment(TextAlignment.CENTER);
         currentNumberMoves.textProperty().bind(Main.NUMBER_OF_MOVES.asString());
+        currentNumberMoves.setFill(Color.valueOf("ecff82"));
 
 
         // VBox declaration to use in sidePane.
@@ -125,7 +129,6 @@ public class Gui {
                 Tile tile = tiles[col][row];
 
                 tile.setOnMousePressed(e -> {
-
                     tilePrevX = tile.getLayoutX();
                     tilePrevY = tile.getLayoutY();
                     if (gameUtil.isSwappableTile(tile)) {
@@ -173,7 +176,7 @@ public class Gui {
 
                                         Animation.playAnimation(gamePane, gameUtil.getPaths());
 
-                                        if (Main.LEVEL == 5) {
+                                        if (Main.LEVEL == Main.MAX_LEVEL) {
                                             System.out.println("CONGRATS YOU WIN !");
                                         } else {
                                             Tile[][] nextLevel = fileUtil.createGrid(++Main.LEVEL);

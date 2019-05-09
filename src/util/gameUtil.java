@@ -60,7 +60,7 @@ public class gameUtil {
         Same for all possibilities
          */
             if (currentTile.isDownEdge() && lastAction != LastAction.UP) {
-                if (tiles[x][y + 1].isUpEdge()) { //Current pipe is downEdged and pipe below is upEdge() we can move there.
+                if (isInsideBoundries(x, (y + 1)) && tiles[x][y + 1].isUpEdge()) { //Current pipe is downEdged and pipe below is upEdge() we can move there.
 
                     y++; // Go below
                     lastAction = LastAction.DOWN;
@@ -75,7 +75,7 @@ public class gameUtil {
             }
 
             if (currentTile.isRightEdge() && lastAction != LastAction.LEFT) {
-                if (tiles[x + 1][y].isLeftEdge()) {
+                if (isInsideBoundries((x + 1), y) && tiles[x + 1][y].isLeftEdge()) {
 
                     x++; // Go right
                     lastAction = LastAction.RIGHT;
@@ -88,7 +88,7 @@ public class gameUtil {
             }
 
             if (currentTile.isUpEdge() && lastAction != LastAction.DOWN) {
-                if (tiles[x][y - 1].isDownEdge()) {
+                if (isInsideBoundries(x, (y - 1)) && tiles[x][y - 1].isDownEdge()) {
                     y--; // Go up
                     lastAction = LastAction.UP;
                     paths.add(new LineTo((x * 100) + offset, (y * 100) + offset));
@@ -100,7 +100,7 @@ public class gameUtil {
             }
 
             if (currentTile.isLeftEdge() && lastAction != LastAction.RIGHT) {
-                if (tiles[x - 1][y].isRightEdge()) {
+                if (isInsideBoundries((x - 1), y) && tiles[x - 1][y].isRightEdge()) {
                     x--; // Go left
                     lastAction = LastAction.LEFT;
                     paths.add(new LineTo((x * 100) + offset, (y * 100) + offset));
@@ -111,6 +111,7 @@ public class gameUtil {
                 }
             }
 
+            // END OF MAIN LOOP
         }
         return true;
 
@@ -158,7 +159,14 @@ public class gameUtil {
         }
         return tiles[xGrid][yGrid];
 
+    }
 
+    public static boolean isInsideBoundries(int x, int y) {
+
+        if (x < 0 || x > 3 || y < 0 || y > 3) {
+            return false;
+        }
+        return true;
     }
 }
 

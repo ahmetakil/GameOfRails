@@ -1,6 +1,9 @@
 package util;
 
+import game.Starter;
+import game.Tile;
 import javafx.animation.PathTransition;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -22,11 +25,25 @@ public class Animation {
 
         Rectangle rect = new Rectangle(80, 80);
         rect.setFill(new ImagePattern(new Image("img/cart.jpeg")));
-        rect.setLayoutX(10);
-        rect.setLayoutY(10);
+
+        double starterX = 0;
+        double starterY = 0;
+
+        /*
+        Find the starter tile from pane to
+        find the animation start location.
+         */
+        for(Node node:pane.getChildren()) {
+
+            if (node instanceof Starter) {
+                starterX = node.getLayoutX();
+                starterY = node.getLayoutY();
+
+            }
+        }
         rect.setStroke(Color.BLACK);
 
-        paths.add(0, new MoveTo(gameUtil.offset, gameUtil.offset));
+        paths.add(0, new MoveTo(starterX+gameUtil.offset, starterY+gameUtil.offset));
         pane.getChildren().add(rect);
 
         pathTransition = new PathTransition();
