@@ -51,7 +51,7 @@ public class FinalGui {
         gameNameImage.setFitHeight(53);
         finalPane.getChildren().addAll(gameNameImage);
 
-        Button button = new Button("EXIT THE GAME");
+        Button button = new Button("EXIT THE GAME " + EntryGui.NAME);
 
         // Creating borderPane to put our text and button on login screen
         borderPane.setMinSize(640, 440);

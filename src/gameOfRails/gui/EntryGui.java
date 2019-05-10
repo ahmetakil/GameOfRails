@@ -74,6 +74,7 @@ public class EntryGui {
         name.setTextFill(Color.web("ecff82"));
 
         TextField textField = new TextField ();
+        NAME = textField.getText();
 
         HBox nameArea = new HBox();
         nameArea.setSpacing(10);

@@ -22,11 +22,14 @@ public class timeUtil {
     as a clock format.
      */
     public static String currentTime(){
-        time = System.currentTimeMillis() - begin;
 
-        long seconds = time/1000;
+        long seconds = currentSeconds();
         long minutes = seconds/60;
         return String.format("%02d:%02d",minutes,seconds%60);
+    }
+
+    public static long currentSeconds(){
+        return (System.currentTimeMillis() - begin)/1000;
     }
 
     /*

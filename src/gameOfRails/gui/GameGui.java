@@ -18,8 +18,8 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class GameGui {
-
-
+    static public int TOTAL_SECONDS = 0;
+    static public int TOTAL_MOVES = 0;
     private Scene gameScene;
     private Tile[][] tiles;
     private Pane rootPane;
@@ -205,19 +205,28 @@ public class GameGui {
 
                                     if (gameUtil.isPathConstructed(tiles)) {
                                         timeUtil.stopTime();
+                                        TOTAL_SECONDS += (int) timeUtil.currentSeconds();
                                         audioUtil.playInLoop(audioUtil.getCartSound());
                                         Animation.playAnimation(gamePane, gameUtil.getPaths());
+                                        TOTAL_MOVES += Main.NUMBER_OF_MOVES.getValue();
+
 
                                         if (Main.LEVEL >= Main.MAX_LEVEL) {
                                             Animation.getPathTransition().setOnFinished(event -> {
                                                 audioUtil.stop();
+                                                try {
+                                                    leaderBoardUtil.addToLeaderBoards();
+                                                }catch (Exception en){
+                                                    System.out.println("IO Exception");
+                                                }
+
                                                 new FinalGui();
                                             });
                                         } else {
+                                            audioUtil.stop();
                                             Tile[][] nextLevel = fileUtil.createGrid(++Main.LEVEL);
                                             GameGui nextGui = new GameGui(nextLevel);
                                             Animation.getPathTransition().setOnFinished(event -> {
-                                                audioUtil.stop();
                                                 nextGui.showGui(Main.getStage());
                                                 Main.NUMBER_OF_MOVES.set(0);
                                             });
