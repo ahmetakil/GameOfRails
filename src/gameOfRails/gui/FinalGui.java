@@ -43,19 +43,24 @@ public class FinalGui {
 
 
 
-        Image gameName = new Image(new File("img/gameName.png").toURI().toString());
+        Image gameName = new Image(new File("img/congratulations.png").toURI().toString());
         ImageView gameNameImage = new ImageView(gameName);
         gameNameImage.setX(finalPane.getMaxWidth()/2- 301);
         gameNameImage.setY(finalPane.getMaxHeight()/2 -33);
         gameNameImage.setFitWidth(602);
-        gameNameImage.setFitHeight(66);
+        gameNameImage.setFitHeight(53);
         finalPane.getChildren().addAll(gameNameImage);
 
-        Button button = new Button("CONGRATULATIONS "+EntryGui.NAME);
+        Button button = new Button("EXIT THE GAME");
 
         // Creating borderPane to put our text and button on login screen
         borderPane.setMinSize(640, 440);
         borderPane.setBottom(button);
+
+        button.setOnMousePressed(e->{
+            audioUtil.stop();
+            Main.getStage().close();
+        });
 
         //Using static borderPane methods to adjust the settings.
         BorderPane.setAlignment(button, Pos.CENTER);
