@@ -64,7 +64,7 @@ public class Gui {
         sidePane.setLayoutY(20);
 
         rootPane.getChildren().addAll(sidePane, gamePane);
-        BackgroundImage gameBackground = new BackgroundImage(new Image("img/emptyFree.jpeg"), BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+        BackgroundImage gameBackground = new BackgroundImage(new Image("img/gamePane.png"), BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
         gamePane.setBackground(new Background(gameBackground));
 
         for (int row = 0; row < tiles.length; row++) {
@@ -156,13 +156,21 @@ public class Gui {
         currentNumberMoves.textProperty().bind(Main.NUMBER_OF_MOVES.asString());
         currentNumberMoves.setFill(Color.valueOf("ecff82"));
 
+        Text time = new Text(sidePane.getMaxWidth() / 2 - 25, sidePane.getMaxHeight() / 4, "00:00");
+        time.setFont(new Font(50));
+        time.setTextAlignment(TextAlignment.CENTER);
+        time.setFill(Color.valueOf("ecff82"));
+        timeUtil.updateTime(time);
+
+
+
 
         // VBox declaration to use in sidePane.
         VBox vbox = new VBox();
         vbox.setPrefWidth(200);
         vbox.setPrefHeight(400);
         vbox.alignmentProperty().set(Pos.CENTER);
-        vbox.getChildren().addAll(level, currentLevel, numberOfMoves, currentNumberMoves);
+        vbox.getChildren().addAll(level, currentLevel, numberOfMoves, currentNumberMoves,time);
 
         sidePane.getChildren().add(vbox);
 
@@ -170,7 +178,7 @@ public class Gui {
 
     // This method is responsible for creating the gamePane and adding all the events.
     public void showGame() {
-
+        timeUtil.startTimer();
         // Iterate through all the tiles and set their event handlers.
         for (int row = 0; row < tiles.length; row++) {
             for (int col = 0; col < tiles[row].length; col++) {
@@ -226,7 +234,7 @@ public class Gui {
                                     swapTiles(swapArray.get(0), swapArray.get(1));
 
                                     if (gameUtil.isPathConstructed(tiles)) {
-
+                                        timeUtil.stopTime();
                                         Animation.playAnimation(gamePane, gameUtil.getPaths());
 
                                         if (Main.LEVEL == Main.MAX_LEVEL) {
