@@ -205,9 +205,9 @@ public class GameGui {
                                     swapTiles(swapArray.get(0), swapArray.get(1));
 
                                     if (gameUtil.isPathConstructed(tiles)) {
+                                        audioUtil.playInLoop(audioUtil.getCartSound());
                                         timeUtil.stopTime();
                                         TOTAL_SECONDS += (int) timeUtil.currentSeconds();
-                                        audioUtil.playInLoop(audioUtil.getCartSound());
                                         Animation.playAnimation(gamePane, gameUtil.getPaths());
                                         TOTAL_MOVES += Main.NUMBER_OF_MOVES.getValue();
 
@@ -224,10 +224,10 @@ public class GameGui {
                                                 new FinalGui();
                                             });
                                         } else {
-                                            audioUtil.stop();
                                             Tile[][] nextLevel = fileUtil.createGrid(++Main.LEVEL);
                                             GameGui nextGui = new GameGui(nextLevel);
                                             Animation.getPathTransition().setOnFinished(event -> {
+                                                audioUtil.stop();
                                                 nextGui.showGui(Main.getStage());
                                                 Main.NUMBER_OF_MOVES.set(0);
                                             });
