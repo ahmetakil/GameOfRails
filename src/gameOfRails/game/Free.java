@@ -1,7 +1,9 @@
-package game;
+package gameOfRails.game;
 
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
+
+import java.io.File;
 
 public class Free extends EmptyTile {
 
@@ -12,7 +14,7 @@ public class Free extends EmptyTile {
 
     @Override
     public void setFill() {
-        this.setFill(new ImagePattern(new Image("img/emptyFree.jpeg")));
+        this.setFill(new ImagePattern(new Image(new File("img/emptyFree.jpeg").toURI().toString())));
     }
 
     @Override

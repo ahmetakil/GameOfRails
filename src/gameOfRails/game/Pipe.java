@@ -1,7 +1,9 @@
-package game;
+package gameOfRails.game;
 
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
+
+import java.io.File;
 
 public class Pipe extends Tile {
 
@@ -24,13 +26,13 @@ public class Pipe extends Tile {
     public void setFill() {
 
         if(isHorizontal() && isMovable()) {
-            this.setFill(new ImagePattern(new Image("img/pipeHorizontal.jpeg")));
+            this.setFill(new ImagePattern(new Image(new File("img/pipeHorizontal.jpeg").toURI().toString())));
         }else if(isHorizontal() && !isMovable()){
-            this.setFill(new ImagePattern(new Image("img/staticHorizontal.jpeg")));
+            this.setFill(new ImagePattern(new Image(new File("img/staticHorizontal.jpeg").toURI().toString())));
         }else if(!isHorizontal() && isMovable()){
-            this.setFill(new ImagePattern(new Image("img/pipeVertical.jpeg")));
+            this.setFill(new ImagePattern(new Image(new File("img/pipeVertical.jpeg").toURI().toString())));
         }else if(!isHorizontal() && !isMovable()){
-            this.setFill(new ImagePattern(new Image("img/staticVertical.jpeg")));
+            this.setFill(new ImagePattern(new Image(new File("img/staticVertical.jpeg").toURI().toString())));
         }
     }
 

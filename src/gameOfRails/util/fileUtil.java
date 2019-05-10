@@ -1,6 +1,6 @@
-package util;
+package gameOfRails.util;
 
-import game.*;
+import gameOfRails.game.*;
 
 import java.io.File;
 import java.io.IOException;

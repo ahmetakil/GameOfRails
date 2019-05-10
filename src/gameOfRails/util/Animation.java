@@ -1,7 +1,6 @@
-package util;
+package gameOfRails.util;
 
-import game.Starter;
-import game.Tile;
+import gameOfRails.game.Starter;
 import javafx.animation.PathTransition;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
@@ -24,7 +23,7 @@ public class Animation {
 
 
         Rectangle rect = new Rectangle(80, 80);
-        rect.setFill(new ImagePattern(new Image("img/cart.jpeg")));
+        rect.setFill(new ImagePattern(new Image("/cart.jpeg")));
 
         double starterX = 0; // Grid x-y position of starterTile
         double starterY = 0;

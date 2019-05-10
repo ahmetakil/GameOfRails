@@ -1,7 +1,9 @@
-package game;
+package gameOfRails.game;
 
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
+
+import java.io.File;
 
 public class EmptyTile extends Tile {
 
@@ -51,8 +53,9 @@ public class EmptyTile extends Tile {
 
     @Override
     public void setFill() {
-        this.setFill(new ImagePattern(new Image("img/empty.jpeg")));
+        this.setFill(new ImagePattern(new Image(new File("img/empty.jpeg").toURI().toString())));
     }
+
 
     @Override
     public String toString(){

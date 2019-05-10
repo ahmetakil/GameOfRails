@@ -1,7 +1,9 @@
-package game;
+package gameOfRails.game;
 
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
+
+import java.io.File;
 
 public class Curved extends Pipe {
 
@@ -45,21 +47,21 @@ public class Curved extends Pipe {
     @Override
     public void setFill() {
         if (isUpEdge() && isRightEdge() && isMovable()) {
-            this.setFill(new ImagePattern(new Image("img/URCurved.png")));
+            this.setFill(new ImagePattern(new Image(new File("img/URCurved.png").toURI().toString())));
         } else if (isUpEdge() && isLeftEdge() && isMovable()) {
-            this.setFill(new ImagePattern(new Image("img/ULCurved.png")));
+            this.setFill(new ImagePattern(new Image(new File("img/ULCurved.png").toURI().toString())));
         } else if (isDownEdge() && isLeftEdge() && isMovable()) {
-            this.setFill(new ImagePattern(new Image("img/DLCurved.png")));
+            this.setFill(new ImagePattern(new Image(new File("img/DLCurved.png").toURI().toString())));
         } else if (isDownEdge() && isRightEdge() && isMovable()) {
-            this.setFill(new ImagePattern(new Image("img/DRCurved.png")));
+            this.setFill(new ImagePattern(new Image(new File("img/DRCurved.png").toURI().toString())));
         } else if (isUpEdge() && isRightEdge()) {
-            this.setFill(new ImagePattern(new Image("img/URcurvedStatic.png")));
+            this.setFill(new ImagePattern(new Image(new File("img/URcurvedStatic.png").toURI().toString())));
         } else if (isUpEdge() && isLeftEdge()) {
-            this.setFill(new ImagePattern(new Image("img/ULcurvedStatic.png")));
+            this.setFill(new ImagePattern(new Image(new File("img/ULcurvedStatic.png").toURI().toString())));
         } else if (isDownEdge() && isLeftEdge()) {
-            this.setFill(new ImagePattern(new Image("img/DLcurvedStatic.png")));
+            this.setFill(new ImagePattern(new Image(new File("img/DLcurvedStatic.png").toURI().toString())));
         } else if (isDownEdge() && isRightEdge()) {
-            this.setFill(new ImagePattern(new Image("img/DRcurvedStatic.png")));
+            this.setFill(new ImagePattern(new Image(new File("img/DRcurvedStatic.png").toURI().toString())));
         }
     }
 

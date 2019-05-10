@@ -1,7 +1,7 @@
-package util;
+package gameOfRails.util;
 
 
-import game.*;
+import gameOfRails.game.*;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.PathElement;
 

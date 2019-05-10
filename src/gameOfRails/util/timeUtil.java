@@ -1,4 +1,4 @@
-package util;
+package gameOfRails.util;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;

@@ -1,9 +1,11 @@
-package game;
+package gameOfRails.game;
 
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+
+import java.io.File;
 
 
 public abstract class Tile extends Rectangle {
@@ -18,7 +20,7 @@ public abstract class Tile extends Rectangle {
         this.xGrid = x;
         this.yGrid = y;
         this.movable = movable;
-        this.image = new Image("img/emptyFree.jpeg");
+        this.image = new Image(new File("img/emptyFree.jpeg").toURI().toString());
         setFill();
         setStroke(Color.WHITE);
 

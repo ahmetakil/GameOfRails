@@ -1,7 +1,9 @@
-package game;
+package gameOfRails.game;
 
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
+
+import java.io.File;
 
 public class End extends Pipe {
 
@@ -20,9 +22,9 @@ public class End extends Pipe {
     @Override
     public void setFill() {
         if(this.isLeftEdge()) {
-            this.setFill(new ImagePattern(new Image("img/endHorizontal.jpeg")));
+            this.setFill(new ImagePattern(new Image(new File("img/endHorizontal.png").toURI().toString())));
         }else{
-            this.setFill(new ImagePattern(new Image("img/endVertical.jpeg")));
+            this.setFill(new ImagePattern(new Image(new File("img/endVertical.png").toURI().toString())));
         }
     }
 

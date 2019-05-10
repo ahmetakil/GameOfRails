@@ -1,20 +1,18 @@
-import game.Free;
-import game.Tile;
-import javafx.geometry.Insets;
+package gameOfRails.gui;
+
+import gameOfRails.Main;
+import gameOfRails.game.Free;
+import gameOfRails.game.Tile;
+import gameOfRails.util.*;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import util.*;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -22,12 +20,12 @@ import java.util.ArrayList;
 public class Gui {
 
 
-    private Scene gameScene,entryScene,finalScene;
+    private Scene gameScene;
     private Tile[][] tiles;
     private Pane rootPane;
     private Pane gamePane;
     private Pane sidePane;
-    private Pane entryPane;
+
     private static int GAME_SIZE = gameUtil.GAME_SIZE;
 
     private ArrayList<Tile> swapArray;
@@ -40,14 +38,12 @@ public class Gui {
 
         this.tiles = tiles;
 
-        entryPane = new Pane();
-        entryPane.setStyle("-fx-background-color:#f84cff");
 
         // rootPane is our global pane that holds gamePane and sidePane
         rootPane = new Pane();
         rootPane.setStyle("-fx-background-color:#000000");
 
-        entryScene = new Scene(entryPane,640,440);
+
         gameScene = new Scene(rootPane, 640, 440); // Creating gameScene with panes
 
         // gamePane is  playable pane that holds the grid.
@@ -66,7 +62,8 @@ public class Gui {
         sidePane.setLayoutY(20);
 
         rootPane.getChildren().addAll(sidePane, gamePane);
-        BackgroundImage gameBackground = new BackgroundImage(new Image("img/gamePane.png"), BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+
+        BackgroundImage gameBackground = new BackgroundImage(new Image(new File("img/gamePane.png").toURI().toString()), BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
         gamePane.setBackground(new Background(gameBackground));
 
         for (int row = 0; row < tiles.length; row++) {
@@ -87,61 +84,16 @@ public class Gui {
     public void showGui(Stage stage) {
         showGame();
         showSidePane();
-        showEntryPane();
         stage.setScene(gameScene);
         stage.show();
     }
 
-    // We call this function only at the beginning to crete the login screen.
-    public void showEntryPane(){
-        entryPane.setMaxHeight(440);
-        entryPane.setMaxWidth(640);
-
-        Image backScreen = new Image(new File("src/img/train.gif").toURI().toString());
-        ImageView imageView = new ImageView(backScreen);
-        imageView.setFitHeight(440);
-        imageView.setFitWidth(640);
-        entryPane.getChildren().addAll(imageView);
-
-        BorderPane borderPane = new BorderPane();
-
-        Image gameName = new Image(new File("src/img/gameName.png").toURI().toString());
-        ImageView gameNameImage = new ImageView(gameName);
-        gameNameImage.setX(entryPane.getMaxWidth()/2- 301);
-        gameNameImage.setY(entryPane.getMaxHeight()/2 -33);
-        gameNameImage.setFitWidth(602);
-        gameNameImage.setFitHeight(66);
-        entryPane.getChildren().addAll(gameNameImage);
-
-        Button button = new Button("PLAY");
-
-        // Creating borderPane to put our text and button on login screen
-        borderPane.setMinSize(640, 440);
-        borderPane.setBottom(button);
-
-        //Using static borderPane methods to adjust the settings.
-        BorderPane.setAlignment(button, Pos.CENTER);
-        BorderPane.setMargin(button, new Insets(5,5,50,5));
-
-
-        Label nameTextField = new Label("Name:");
-        nameTextField.setTextFill(Color.web("ecff82"));
-        TextField textField = new TextField ();
-        HBox nameArea = new HBox();
-        nameArea.setSpacing(10);
-        nameArea.getChildren().addAll(nameTextField,textField);
-        nameArea.setLayoutX(entryPane.getMaxHeight()/2);
-        nameArea.setLayoutY(entryPane.getMaxWidth()/2);
-
-        entryPane.getChildren().addAll(borderPane,nameArea);
-        button.setOnMousePressed(e-> showGui(Main.getStage()));
-        Main.getStage().setScene(entryScene);
-        Main.getStage().show();
-    }
 
     public void showSidePane() {
 
-        sidePane.setStyle("-fx-background-image: url(img/emptyFree.jpeg)");
+        BackgroundImage gameBackground = new BackgroundImage(new Image(new File("img/emptyFree.jpeg").toURI().toString()), BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+        sidePane.setBackground(new Background(gameBackground));
+
 
         Text level = new Text(sidePane.getMaxWidth() / 2 - 50, sidePane.getMaxHeight() / 4 - 50, "LEVEL");
         level.setFont(new Font(30));
@@ -179,14 +131,12 @@ public class Gui {
         timeUtil.updateTime(time);
 
 
-
-
         // VBox declaration to use in sidePane.
         VBox vbox = new VBox();
         vbox.setPrefWidth(200);
         vbox.setPrefHeight(400);
         vbox.alignmentProperty().set(Pos.CENTER);
-        vbox.getChildren().addAll(level, currentLevel, numberOfMoves, currentNumberMoves,timeText,time);
+        vbox.getChildren().addAll(level, currentLevel, numberOfMoves, currentNumberMoves, timeText, time);
 
         sidePane.getChildren().add(vbox);
 
@@ -194,7 +144,9 @@ public class Gui {
 
     // This method is responsible for creating the gamePane and adding all the events.
     public void showGame() {
+
         timeUtil.startTimer();
+
         // Iterate through all the tiles and set their event handlers.
         for (int row = 0; row < tiles.length; row++) {
             for (int col = 0; col < tiles[row].length; col++) {
@@ -235,9 +187,9 @@ public class Gui {
                                 if (gameUtil.isSwappableTile(tile)) {
                                     Tile swap2 = gameUtil.getTileFromMouse(tiles, e.getSceneX(), e.getSceneY());
 
-                                        if(swapArray.isEmpty()){
-                                            return;
-                                        }
+                                    if (swapArray.isEmpty()) {
+                                        return;
+                                    }
 
                                     if (swap2 == null || !gameUtil.isSwappableTiles(swapArray.get(0), swap2)) {
                                         swapArray.clear();
@@ -254,8 +206,11 @@ public class Gui {
                                         audioUtil.playInLoop(audioUtil.getCartSound());
                                         Animation.playAnimation(gamePane, gameUtil.getPaths());
 
-                                        if (Main.LEVEL == Main.MAX_LEVEL) {
-                                            System.out.println("CONGRATS YOU WIN !");
+                                        if (Main.LEVEL >= Main.MAX_LEVEL) {
+                                            Animation.getPathTransition().setOnFinished(event -> {
+                                                new FinalGui();
+                                                audioUtil.stop();
+                                            });
                                         } else {
                                             Tile[][] nextLevel = fileUtil.createGrid(++Main.LEVEL);
                                             Gui nextGui = new Gui(nextLevel);

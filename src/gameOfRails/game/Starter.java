@@ -1,7 +1,9 @@
-package game;
+package gameOfRails.game;
 
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
+
+import java.io.File;
 
 public class Starter extends Pipe {
 
@@ -15,9 +17,9 @@ public class Starter extends Pipe {
     @Override
     public void setFill(){
         if(isHorizontal()) {
-            this.setFill(new ImagePattern(new Image("img/starterHorizontal.png")));
+            this.setFill(new ImagePattern(new Image(new File("img/starterHorizontal.png").toURI().toString())));
         }else{
-            this.setFill(new ImagePattern(new Image("img/starterVertical.png")));
+            this.setFill(new ImagePattern(new Image(new File("img/starterVertical.png").toURI().toString())));
         }
     }
 

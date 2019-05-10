@@ -1,4 +1,4 @@
-package util;
+package gameOfRails.util;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -6,7 +6,8 @@ import javafx.scene.media.MediaPlayer;
 import java.io.File;
 
 public class audioUtil {
-    static Media cartSound = new Media(new File("src/audio/cart.aiff").toURI().toString());
+
+    static Media cartSound = new Media(new File("audio/cart.aiff").toURI().toString());
     static Media orbSound;
     static Media yesSound;
     static MediaPlayer mediaPlayer;
