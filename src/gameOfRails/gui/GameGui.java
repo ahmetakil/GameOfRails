@@ -147,6 +147,7 @@ public class GameGui {
 
         timeUtil.startTimer();
 
+
         // Iterate through all the tiles and set their event handlers.
         for (int row = 0; row < tiles.length; row++) {
             for (int col = 0; col < tiles[row].length; col++) {
