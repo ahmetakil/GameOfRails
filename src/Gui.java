@@ -4,6 +4,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -122,7 +124,16 @@ public class Gui {
         BorderPane.setMargin(button, new Insets(5,5,50,5));
 
 
-        entryPane.getChildren().add(borderPane);
+        Label nameTextField = new Label("Name:");
+        nameTextField.setTextFill(Color.web("ecff82"));
+        TextField textField = new TextField ();
+        HBox nameArea = new HBox();
+        nameArea.setSpacing(10);
+        nameArea.getChildren().addAll(nameTextField,textField);
+        nameArea.setLayoutX(entryPane.getMaxHeight()/2);
+        nameArea.setLayoutY(entryPane.getMaxWidth()/2);
+
+        entryPane.getChildren().addAll(borderPane,nameArea);
         button.setOnMousePressed(e-> showGui(Main.getStage()));
         Main.getStage().setScene(entryScene);
         Main.getStage().show();
