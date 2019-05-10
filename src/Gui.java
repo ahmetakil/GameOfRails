@@ -156,6 +156,11 @@ public class Gui {
         currentNumberMoves.textProperty().bind(Main.NUMBER_OF_MOVES.asString());
         currentNumberMoves.setFill(Color.valueOf("ecff82"));
 
+        Text timeText = new Text("TIME");
+        timeText.setFont(new Font(30));
+        timeText.setTextAlignment(TextAlignment.CENTER);
+        timeText.setFill(Color.valueOf("ecff82"));
+
         Text time = new Text(sidePane.getMaxWidth() / 2 - 25, sidePane.getMaxHeight() / 4, "00:00");
         time.setFont(new Font(50));
         time.setTextAlignment(TextAlignment.CENTER);
@@ -170,7 +175,7 @@ public class Gui {
         vbox.setPrefWidth(200);
         vbox.setPrefHeight(400);
         vbox.alignmentProperty().set(Pos.CENTER);
-        vbox.getChildren().addAll(level, currentLevel, numberOfMoves, currentNumberMoves,time);
+        vbox.getChildren().addAll(level, currentLevel, numberOfMoves, currentNumberMoves,timeText,time);
 
         sidePane.getChildren().add(vbox);
 
