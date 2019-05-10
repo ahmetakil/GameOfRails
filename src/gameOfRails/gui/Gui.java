@@ -158,7 +158,9 @@ public class Gui {
                     tilePrevY = tile.getLayoutY();
                     if (!(tile instanceof Free) && gameUtil.isSwappableTile(tile)) {
                      /* Removing then putting the tile back on top to give it top priority
-                    otherwise it will go below other tiles.  */
+                    otherwise it will go below other tiles since we don't want Free tiles to be draggable
+                     but they still can be moved if something is dragged over them we still set them as movable
+                     but check if the pressed tile is not Free */
                         gamePane.getChildren().remove(tile);
                         gamePane.getChildren().add(tile);
 

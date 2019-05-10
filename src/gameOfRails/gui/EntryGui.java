@@ -21,6 +21,7 @@ public class EntryGui {
 
     private Scene entryScene;
     private Pane entryPane;
+    public static String NAME;
 
 
     public EntryGui(Tile[][] tiles){
@@ -60,12 +61,14 @@ public class EntryGui {
         BorderPane.setMargin(button, new Insets(5,5,50,5));
 
 
-        Label nameTextField = new Label("Name:");
-        nameTextField.setTextFill(Color.web("ecff82"));
+        Label name = new Label("Name:");
+        name.setTextFill(Color.web("ecff82"));
+
         TextField textField = new TextField ();
+
         HBox nameArea = new HBox();
         nameArea.setSpacing(10);
-        nameArea.getChildren().addAll(nameTextField,textField);
+        nameArea.getChildren().addAll(name,textField);
         nameArea.setLayoutX(entryPane.getMaxHeight()/2);
         nameArea.setLayoutY(entryPane.getMaxWidth()/2);
 
@@ -73,6 +76,7 @@ public class EntryGui {
         button.setOnMousePressed(e->{
             Gui gui = new Gui(tiles);
             gui.showGui(Main.getStage());
+            NAME =  textField.getText();
     });
 
         Main.getStage().setScene(entryScene);
