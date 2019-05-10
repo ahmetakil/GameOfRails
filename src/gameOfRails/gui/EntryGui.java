@@ -2,6 +2,7 @@ package gameOfRails.gui;
 
 import gameOfRails.Main;
 import gameOfRails.game.Tile;
+import gameOfRails.util.audioUtil;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -33,7 +34,7 @@ public class EntryGui {
         entryScene = new Scene(entryPane,640,440);
         entryPane.setMaxHeight(440);
         entryPane.setMaxWidth(640);
-
+        audioUtil.playInLoop(audioUtil.getEntryMusic());
         Image backScreen = new Image(new File("img/train.gif").toURI().toString());
         ImageView imageView = new ImageView(backScreen);
         imageView.setFitHeight(440);
@@ -49,6 +50,14 @@ public class EntryGui {
         gameNameImage.setFitWidth(602);
         gameNameImage.setFitHeight(66);
         entryPane.getChildren().addAll(gameNameImage);
+
+        Image quote = new Image(new File("img/quote.png").toURI().toString());
+        ImageView quoteImage = new ImageView(quote);
+        quoteImage.setX(70);
+        quoteImage.setY(270);
+        quoteImage.setFitWidth(522);
+        quoteImage.setFitHeight(10);
+        entryPane.getChildren().addAll(quoteImage);
 
         Button button = new Button("PLAY");
 
@@ -74,7 +83,8 @@ public class EntryGui {
 
         entryPane.getChildren().addAll(borderPane,nameArea);
         button.setOnMousePressed(e->{
-            Gui gui = new Gui(tiles);
+            audioUtil.stop();
+            GameGui gui = new GameGui(tiles);
             gui.showGui(Main.getStage());
             NAME =  textField.getText();
     });

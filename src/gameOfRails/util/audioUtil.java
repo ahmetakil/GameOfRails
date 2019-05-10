@@ -10,6 +10,7 @@ public class audioUtil {
     static Media cartSound = new Media(new File("audio/cart.aiff").toURI().toString());
     static Media orbSound;
     static Media yesSound;
+    static Media entryMusic = new Media(new File("audio/entryMusic.aiff").toURI().toString());
     static MediaPlayer mediaPlayer;
 
     public static void playInLoop(Media media){
@@ -32,4 +33,8 @@ public class audioUtil {
     public static Media getCartSound() { return cartSound; }
     public static Media getOrbSound() { return orbSound; }
     public static Media getYesSound() { return yesSound; }
+
+    public static Media getEntryMusic() {
+        return entryMusic;
+    }
 }

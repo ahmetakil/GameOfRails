@@ -13,6 +13,7 @@ import javafx.scene.shape.PathElement;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class Animation {
@@ -23,7 +24,7 @@ public class Animation {
 
 
         Rectangle rect = new Rectangle(80, 80);
-        rect.setFill(new ImagePattern(new Image("/cart.jpeg")));
+        rect.setFill(new ImagePattern(new Image(new File("img/cart.png").toURI().toString())));
 
         double starterX = 0; // Grid x-y position of starterTile
         double starterY = 0;

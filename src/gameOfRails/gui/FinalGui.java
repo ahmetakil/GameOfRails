@@ -1,6 +1,7 @@
 package gameOfRails.gui;
 
 import gameOfRails.Main;
+import gameOfRails.util.audioUtil;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -9,6 +10,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 
 import java.io.File;
 
@@ -31,9 +35,13 @@ public class FinalGui {
         ImageView imageView = new ImageView(backScreen);
         imageView.setFitHeight(440);
         imageView.setFitWidth(640);
+        audioUtil.playInLoop(audioUtil.getEntryMusic());
         finalPane.getChildren().addAll(imageView);
 
         BorderPane borderPane = new BorderPane();
+
+
+
 
         Image gameName = new Image(new File("img/gameName.png").toURI().toString());
         ImageView gameNameImage = new ImageView(gameName);
