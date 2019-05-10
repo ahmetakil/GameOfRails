@@ -226,7 +226,7 @@ public class Gui {
                 });
                 /*
                  When released first check if there is a proper tile at mouse locations then
-                 swap the tiles and check if the pathConstructed if it is play the animation
+                 swap the tiles and check if the pathConstructed if it is playInLoop the animation
                  and continue to the next level.
                  */
                 tile.setOnMouseReleased(e -> {
@@ -251,6 +251,7 @@ public class Gui {
 
                                     if (gameUtil.isPathConstructed(tiles)) {
                                         timeUtil.stopTime();
+                                        audioUtil.playInLoop(audioUtil.getCartSound());
                                         Animation.playAnimation(gamePane, gameUtil.getPaths());
 
                                         if (Main.LEVEL == Main.MAX_LEVEL) {
@@ -259,6 +260,7 @@ public class Gui {
                                             Tile[][] nextLevel = fileUtil.createGrid(++Main.LEVEL);
                                             Gui nextGui = new Gui(nextLevel);
                                             Animation.getPathTransition().setOnFinished(event -> {
+                                                audioUtil.stop();
                                                 nextGui.showGui(Main.getStage());
                                                 Main.NUMBER_OF_MOVES.set(0);
                                             });
