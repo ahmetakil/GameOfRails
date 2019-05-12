@@ -20,9 +20,10 @@ import java.io.File;
 
 public class EntryGui {
 
-    private Scene entryScene;
+    private static Scene entryScene;
     private Pane entryPane;
     public static String NAME;
+
 
 
     public EntryGui(Tile[][] tiles){
@@ -59,7 +60,21 @@ public class EntryGui {
         quoteImage.setFitHeight(10);
         entryPane.getChildren().addAll(quoteImage);
 
-        Button button = new Button("PLAY");
+        Button musicButton = new Button("Mute");
+
+        musicButton.setLayoutX(20);
+        musicButton.setLayoutY(20);
+
+        musicButton.setOnMousePressed(e -> {
+                    audioUtil.Mute();
+                    System.out.println("a");
+                }
+        );
+
+
+        Button button = new Button("Play");
+        button.setDefaultButton(true);
+
 
         // Creating borderPane to put our text and button on login screen
         borderPane.setMinSize(640, 440);
@@ -73,7 +88,7 @@ public class EntryGui {
         Label name = new Label("Name:");
         name.setTextFill(Color.web("ecff82"));
 
-        TextField textField = new TextField ();
+        TextField textField = new TextField();
         NAME = textField.getText();
 
         HBox nameArea = new HBox();
@@ -83,7 +98,8 @@ public class EntryGui {
         nameArea.setLayoutY(entryPane.getMaxWidth()/2);
 
         entryPane.getChildren().addAll(borderPane,nameArea);
-        button.setOnMousePressed(e->{
+        entryPane.getChildren().addAll(musicButton);
+        button.setOnAction(e->{
             audioUtil.stop();
             GameGui gui = new GameGui(tiles);
             gui.showGui(Main.getStage());
@@ -92,8 +108,6 @@ public class EntryGui {
 
         Main.getStage().setScene(entryScene);
         Main.getStage().show();
-
-
     }
 
 }

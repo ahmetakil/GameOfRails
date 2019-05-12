@@ -13,11 +13,14 @@ import gameOfRails.util.fileUtil;
 
 import java.io.File;
 
+//Rıdvan San 150117029
+//Ahmet Akıl
+
 public class Main extends Application {
 
     public static IntegerProperty NUMBER_OF_MOVES = new SimpleIntegerProperty(0);
     public static final int MAX_LEVEL = fileUtil.getMaxLevel();
-    public static int LEVEL = 6;
+    public static int LEVEL = 1;
     private static Stage primaryStage;
 
     public static void main(String[] args) {

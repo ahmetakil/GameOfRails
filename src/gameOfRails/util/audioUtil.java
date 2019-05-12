@@ -8,8 +8,7 @@ import java.io.File;
 public class audioUtil {
 
     static Media cartSound = new Media(new File("audio/cart.aiff").toURI().toString());
-    static Media orbSound;
-    static Media yesSound;
+    static Media inGameMusic = new Media(new File("audio/inGameMusic.aiff").toURI().toASCIIString());
     static Media entryMusic = new Media(new File("audio/entryMusic.aiff").toURI().toString());
     static MediaPlayer mediaPlayer;
 
@@ -31,10 +30,12 @@ public class audioUtil {
 
 
     public static Media getCartSound() { return cartSound; }
-    public static Media getOrbSound() { return orbSound; }
-    public static Media getYesSound() { return yesSound; }
+    public static Media getInGameMusic() { return inGameMusic; }
+    public static Media getEntryMusic() { return entryMusic; }
 
-    public static Media getEntryMusic() {
-        return entryMusic;
+    public static void Mute(){
+        mediaPlayer.setMute(true);
+
+
     }
 }

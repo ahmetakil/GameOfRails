@@ -2,7 +2,7 @@ package gameOfRails.gui;
 
 import gameOfRails.Main;
 import gameOfRails.util.audioUtil;
-import gameOfRails.util.leaderBoardUtil;
+import gameOfRails.util.statUtil;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -11,9 +11,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 import java.io.File;
 
@@ -23,8 +22,7 @@ public class FinalGui {
     private Pane finalPane;
 
     public FinalGui(){
-
-
+        audioUtil.stop();
 
         finalPane = new Pane();
         finalPane.setStyle("-fx-background-color:#f84cff");
@@ -33,7 +31,7 @@ public class FinalGui {
         finalPane.setMaxHeight(440);
         finalPane.setMaxWidth(640);
 
-        Image backScreen = new Image(new File("img/train.gif").toURI().toString());
+        Image backScreen = new Image(new File("img/outro.gif").toURI().toString());
         ImageView imageView = new ImageView(backScreen);
         imageView.setFitHeight(440);
         imageView.setFitWidth(640);
@@ -41,6 +39,10 @@ public class FinalGui {
         finalPane.getChildren().addAll(imageView);
 
         BorderPane borderPane = new BorderPane();
+
+        Text stats = new Text(statUtil.stats());
+        stats.setFill(Color.web("ecff82"));
+        System.out.println(statUtil.stats());
 
 
 
@@ -53,23 +55,32 @@ public class FinalGui {
         gameNameImage.setFitHeight(53);
         finalPane.getChildren().addAll(gameNameImage);
 
-        Button button = new Button("EXIT THE GAME " + EntryGui.NAME);
+
+        Button restartButton = new Button("PLAY AGAIN");
+        Button exitButton = new Button("EXIT THE GAME " + EntryGui.NAME);
 
         // Creating borderPane to put our text and button on login screen
         borderPane.setMinSize(640, 440);
-        borderPane.setBottom(button);
+        borderPane.setBottom(exitButton);
+        borderPane.setCenter(restartButton);
 
-        button.setOnMousePressed(e->{
+        restartButton.setOnMousePressed(e ->{
+            Main.LEVEL = 1;
+            audioUtil.stop();
+            Main.getStage().setScene(GameGui.getGameScene());
+        });
+
+        exitButton.setOnMousePressed(e->{
             audioUtil.stop();
             Main.getStage().close();
         });
 
-        //Using static borderPane methods to adjust the settings.
-        BorderPane.setAlignment(button, Pos.CENTER);
-        BorderPane.setMargin(button, new Insets(5,5,50,5));
+            //Using static borderPane methods to adjust the settings.
+        BorderPane.setAlignment(exitButton, Pos.CENTER);
+        BorderPane.setMargin(exitButton, new Insets(5,5,50,5));
 
         finalPane.getChildren().addAll(borderPane);
-
+        finalPane.getChildren().addAll(stats);
         Main.getStage().setScene(finalScene);
         Main.getStage().show();
 

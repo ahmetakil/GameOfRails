@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class GameGui {
     static public int TOTAL_SECONDS = 0;
     static public int TOTAL_MOVES = 0;
-    private Scene gameScene;
+    private static Scene gameScene;
     private Tile[][] tiles;
     private Pane rootPane;
     private Pane gamePane;
@@ -42,7 +42,8 @@ public class GameGui {
         // rootPane is our global pane that holds gamePane and sidePane
         rootPane = new Pane();
         rootPane.setStyle("-fx-background-color:#000000");
-
+        audioUtil.stop();
+        audioUtil.playOnce(audioUtil.getInGameMusic());
 
         gameScene = new Scene(rootPane, 640, 440); // Creating gameScene with panes
 
@@ -205,22 +206,16 @@ public class GameGui {
                                     swapTiles(swapArray.get(0), swapArray.get(1));
 
                                     if (gameUtil.isPathConstructed(tiles)) {
-                                        audioUtil.playInLoop(audioUtil.getCartSound());
-                                        timeUtil.stopTime();
                                         TOTAL_SECONDS += (int) timeUtil.currentSeconds();
-                                        Animation.playAnimation(gamePane, gameUtil.getPaths());
                                         TOTAL_MOVES += Main.NUMBER_OF_MOVES.getValue();
-
+                                        statUtil.addToStats();
+                                        timeUtil.stopTime();
+                                        audioUtil.playInLoop(audioUtil.getCartSound());
+                                        Animation.playAnimation(gamePane, gameUtil.getPaths());
 
                                         if (Main.LEVEL >= Main.MAX_LEVEL) {
                                             Animation.getPathTransition().setOnFinished(event -> {
                                                 audioUtil.stop();
-                                                try {
-                                                    leaderBoardUtil.addToLeaderBoards();
-                                                }catch (Exception en){
-                                                    System.out.println("IO Exception");
-                                                }
-
                                                 new FinalGui();
                                             });
                                         } else {
@@ -297,4 +292,7 @@ public class GameGui {
         swapArray.clear();
     }
 
+    public static Scene getGameScene() {
+        return gameScene;
+    }
 }
