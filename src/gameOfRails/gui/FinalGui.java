@@ -1,6 +1,7 @@
 package gameOfRails.gui;
 
 import gameOfRails.Main;
+import gameOfRails.util.Animation;
 import gameOfRails.util.audioUtil;
 import gameOfRails.util.fileUtil;
 import gameOfRails.util.statUtil;
@@ -68,6 +69,7 @@ public class FinalGui {
 
         restartButton.setOnMousePressed(e ->{
             Main.LEVEL = 1;
+            Animation.getPaths().clear();
             audioUtil.stopAll();
            new EntryGui(fileUtil.createGrid(1));
         });

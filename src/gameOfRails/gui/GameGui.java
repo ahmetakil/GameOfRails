@@ -6,6 +6,7 @@ import gameOfRails.game.Tile;
 import gameOfRails.util.*;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -136,7 +137,10 @@ public class GameGui {
         vbox.setPrefWidth(200);
         vbox.setPrefHeight(400);
         vbox.alignmentProperty().set(Pos.CENTER);
-        vbox.getChildren().addAll(level, currentLevel, numberOfMoves, currentNumberMoves, timeText, time);
+
+        Button muteButton = gameUtil.createMuteButton();
+
+        vbox.getChildren().addAll(level, currentLevel, numberOfMoves, currentNumberMoves, timeText, time,muteButton);
 
         sidePane.getChildren().add(vbox);
 

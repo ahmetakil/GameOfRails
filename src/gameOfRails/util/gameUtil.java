@@ -2,6 +2,7 @@ package gameOfRails.util;
 
 
 import gameOfRails.game.*;
+import javafx.scene.control.Button;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.PathElement;
 
@@ -60,7 +61,7 @@ public class gameUtil {
         Same for all possibilities
          */
             if (currentTile.isDownEdge() && lastAction != LastAction.UP) {
-                if (isInsideBoundries(x, (y + 1)) && tiles[x][y + 1].isUpEdge()) { //Current pipe is downEdged and pipe below is upEdge() we can move there.
+                if (isInsideBoundaries(x, (y + 1)) && tiles[x][y + 1].isUpEdge()) { //Current pipe is downEdged and pipe below is upEdge() we can move there.
 
                     y++; // Go below
                     lastAction = LastAction.DOWN;
@@ -75,7 +76,7 @@ public class gameUtil {
             }
 
             if (currentTile.isRightEdge() && lastAction != LastAction.LEFT) {
-                if (isInsideBoundries((x + 1), y) && tiles[x + 1][y].isLeftEdge()) {
+                if (isInsideBoundaries((x + 1), y) && tiles[x + 1][y].isLeftEdge()) {
 
                     x++; // Go right
                     lastAction = LastAction.RIGHT;
@@ -88,7 +89,7 @@ public class gameUtil {
             }
 
             if (currentTile.isUpEdge() && lastAction != LastAction.DOWN) {
-                if (isInsideBoundries(x, (y - 1)) && tiles[x][y - 1].isDownEdge()) {
+                if (isInsideBoundaries(x, (y - 1)) && tiles[x][y - 1].isDownEdge()) {
                     y--; // Go up
                     lastAction = LastAction.UP;
                     paths.add(new LineTo((x * 100) + offset, (y * 100) + offset));
@@ -100,7 +101,7 @@ public class gameUtil {
             }
 
             if (currentTile.isLeftEdge() && lastAction != LastAction.RIGHT) {
-                if (isInsideBoundries((x - 1), y) && tiles[x - 1][y].isRightEdge()) {
+                if (isInsideBoundaries((x - 1), y) && tiles[x - 1][y].isRightEdge()) {
                     x--; // Go left
                     lastAction = LastAction.LEFT;
                     paths.add(new LineTo((x * 100) + offset, (y * 100) + offset));
@@ -161,12 +162,21 @@ public class gameUtil {
 
     }
 
-    public static boolean isInsideBoundries(int x, int y) {
+    public static boolean isInsideBoundaries(int x, int y) {
 
         if (x < 0 || x > 3 || y < 0 || y > 3) {
             return false;
         }
         return true;
+    }
+
+    public static Button createMuteButton() {
+        Button muteButton = new Button(audioUtil.muteText.toString());
+        muteButton.textProperty().bind(audioUtil.muteText);
+        muteButton.setLayoutX(20);
+        muteButton.setLayoutY(20);
+        muteButton.setOnMousePressed(e -> audioUtil.mute());
+        return muteButton;
     }
 }
 

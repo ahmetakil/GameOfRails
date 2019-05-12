@@ -1,5 +1,7 @@
 package gameOfRails.util;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -7,13 +9,15 @@ import java.io.File;
 
 public class audioUtil {
 
-    static Media cartSound = new Media(new File("audio/cart.aiff").toURI().toString());
-    static Media inGameMusic = new Media(new File("audio/inGameMusic.aiff").toURI().toASCIIString());
-    static Media entryMusic = new Media(new File("audio/entryMusic.aiff").toURI().toString());
-    static MediaPlayer cartPlayer = new MediaPlayer(cartSound);
-    static MediaPlayer entryPlayer = new MediaPlayer(entryMusic);
-    static MediaPlayer gamePlayer = new MediaPlayer(inGameMusic);
-    static boolean isMuted = false;
+
+    private static Media cartSound = new Media(new File("audio/cart.aiff").toURI().toString());
+    private static Media inGameMusic = new Media(new File("audio/inGameMusic.aiff").toURI().toASCIIString());
+    private static Media entryMusic = new Media(new File("audio/entryMusic.aiff").toURI().toString());
+    private static MediaPlayer cartPlayer = new MediaPlayer(cartSound);
+    private static MediaPlayer entryPlayer = new MediaPlayer(entryMusic);
+    private static MediaPlayer gamePlayer = new MediaPlayer(inGameMusic);
+    private static boolean isMuted = false;
+    public static StringProperty muteText = new SimpleStringProperty("MUTE");
 
     public static void play(MediaPlayer mediaPlayer) {
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
@@ -52,10 +56,6 @@ public class audioUtil {
         stop(cartPlayer);
     }
 
-    public static void stopGame(){
-        stop(gamePlayer);
-    }
-
 
     public static void mute() {
 
@@ -72,6 +72,7 @@ public class audioUtil {
             entryPlayer.setMute(true);
             isMuted = true;
         }
+        muteText.set(isMuted ? "UNMUTE" : "MUTE");
 
     }
 }

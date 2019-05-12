@@ -3,6 +3,7 @@ package gameOfRails.gui;
 import gameOfRails.Main;
 import gameOfRails.game.Tile;
 import gameOfRails.util.audioUtil;
+import gameOfRails.util.gameUtil;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -22,7 +23,7 @@ public class EntryGui {
 
     private static Scene entryScene;
     private Pane entryPane;
-    public static String NAME;
+    static String NAME;
 
 
     public EntryGui(Tile[][] tiles){
@@ -59,12 +60,7 @@ public class EntryGui {
         quoteImage.setFitHeight(10);
         entryPane.getChildren().addAll(quoteImage);
 
-        Button musicButton = new Button("Mute");
-
-        musicButton.setLayoutX(20);
-        musicButton.setLayoutY(20);
-
-        musicButton.setOnMousePressed(e -> audioUtil.mute());
+        Button muteButton = gameUtil.createMuteButton();
 
         Button button = new Button("Play");
         button.setDefaultButton(true);
@@ -91,7 +87,7 @@ public class EntryGui {
         nameArea.setLayoutY(entryPane.getMaxWidth()/2);
 
         entryPane.getChildren().addAll(borderPane,nameArea);
-        entryPane.getChildren().addAll(musicButton);
+        entryPane.getChildren().addAll(muteButton);
         button.setOnAction(e->{
             audioUtil.stopEntry();
             GameGui gui = new GameGui(tiles);

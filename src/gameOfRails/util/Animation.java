@@ -19,10 +19,11 @@ import java.util.ArrayList;
 public class Animation {
 
     private static PathTransition pathTransition;
+    private static ArrayList<PathElement> paths;
 
     public static void playAnimation(Pane pane, ArrayList<PathElement> paths) {
 
-
+        Animation.paths = paths;
         Rectangle rect = new Rectangle(80, 80);
         rect.setFill(new ImagePattern(new Image(new File("img/cart.png").toURI().toString())));
 
@@ -60,5 +61,9 @@ public class Animation {
 
     public static PathTransition getPathTransition() {
         return pathTransition;
+    }
+
+    public static ArrayList<PathElement> getPaths() {
+        return paths;
     }
 }

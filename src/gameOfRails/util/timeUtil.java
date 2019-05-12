@@ -18,7 +18,7 @@ public class timeUtil {
 
     /*
     This method takes difference of current time and beginning time and converts
-    it into the seconds and minutes with dividing the miliseconds and returns string
+    it into the seconds and minutes with dividing the milliseconds and returns string
     as a clock format.
      */
     public static String currentTime(){
@@ -37,11 +37,10 @@ public class timeUtil {
     it sets the text to current time
      */
     public static void updateTime(Text text){
-        clock = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
-            text.setText(currentTime());
-        }),
+        clock = new Timeline(new KeyFrame(Duration.seconds(1), e -> text.setText(currentTime())),
                 new KeyFrame(Duration.seconds(1))
         );
+
         clock.setCycleCount(Animation.INDEFINITE);
         clock.play();
     }
