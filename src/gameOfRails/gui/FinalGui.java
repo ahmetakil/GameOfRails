@@ -12,9 +12,11 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 import java.io.File;
 
@@ -45,7 +47,9 @@ public class FinalGui {
 
         Text stats = new Text(statUtil.stats());
         stats.setFill(Color.web("ecff82"));
-        System.out.println(statUtil.stats());
+        stats.setX(finalPane.getMaxWidth()/2 - 50);
+        stats.setY(finalPane.getMaxHeight()/2);
+        stats.setTextAlignment(TextAlignment.CENTER);
 
 
 
@@ -53,7 +57,7 @@ public class FinalGui {
         Image gameName = new Image(new File("img/congratulations.png").toURI().toString());
         ImageView gameNameImage = new ImageView(gameName);
         gameNameImage.setX(finalPane.getMaxWidth()/2- 301);
-        gameNameImage.setY(finalPane.getMaxHeight()/2 -33);
+        gameNameImage.setY(finalPane.getMaxHeight()/2 - 133);
         gameNameImage.setFitWidth(602);
         gameNameImage.setFitHeight(53);
         finalPane.getChildren().addAll(gameNameImage);
@@ -62,10 +66,15 @@ public class FinalGui {
         Button restartButton = new Button("PLAY AGAIN");
         Button exitButton = new Button("EXIT THE GAME " + EntryGui.NAME);
 
+        HBox buttons = new HBox();
+        buttons.setSpacing(20);
+        buttons.getChildren().addAll(exitButton,restartButton);
+        //buttons.setLayoutX(finalPane.getMaxHeight()/2);
+        //buttons.setLayoutY(finalPane.getMaxWidth()/2);
         // Creating borderPane to put our text and button on login screen
         borderPane.setMinSize(640, 440);
-        borderPane.setBottom(exitButton);
-        borderPane.setCenter(restartButton);
+        borderPane.setBottom(buttons);
+
 
         restartButton.setOnMousePressed(e ->{
             Main.LEVEL = 1;
@@ -80,8 +89,8 @@ public class FinalGui {
         });
 
             //Using static borderPane methods to adjust the settings.
-        BorderPane.setAlignment(exitButton, Pos.CENTER);
-        BorderPane.setMargin(exitButton, new Insets(5,5,50,5));
+        BorderPane.setAlignment(buttons, Pos.CENTER);
+        BorderPane.setMargin(buttons, new Insets(5,5,50,5));
 
         finalPane.getChildren().addAll(borderPane);
         finalPane.getChildren().addAll(stats);

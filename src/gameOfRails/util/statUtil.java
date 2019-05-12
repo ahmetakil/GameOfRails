@@ -13,16 +13,19 @@ public class statUtil {
     }
 
     public static String stats(){
-        String string = "Level 1:\t Time is:" + hourFormatConverter(times[0]) + " Number of Moves: " + moves[0] +
-                "\nLevel 2:\t Time is:" + hourFormatConverter(times[1]) + " Number of Moves: " + moves[1] +
-                "\nLevel 3:\t Time is:" + hourFormatConverter(times[2]) + " Number of Moves: " + moves[2] +
-                "\nLevel 4:\t Time is:" + hourFormatConverter(times[3]) + " Number of Moves: " + moves[3] +
-                "\nLevel 5:\t Time is:" + hourFormatConverter(times[4]) + " Number of Moves: " + moves[4] +
-                "\nIn Total:\t Time is:" + hourFormatConverter(GameGui.TOTAL_SECONDS) + " Number of Moves: " + GameGui.TOTAL_MOVES;
+        String string = "";
+        for (int i = 0;i<Main.MAX_LEVEL;i++){
+            string += String.format("Level %d   Time: %s Number of Moves: %d\n",i+1,hourFormatConverter(times[i]),moves[i]);
+        }
+        string += "In Total: Time is:" + hourFormatConverter(GameGui.TOTAL_SECONDS) + " Number of Moves: " + GameGui.TOTAL_MOVES;
         return string;
     }
     private static int arrraySum(int[] arrray){
-        return 0;
+        int sum = 0;
+        for (int i = 0;i<arrray.length;i++){
+            sum+= arrray[i];
+        }
+        return sum;
     }
 
     public static String hourFormatConverter (int input){
