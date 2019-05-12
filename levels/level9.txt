@@ -1,0 +1,17 @@
+1,Empty,free
+2,Pipe,11
+3,Pipe,11
+4,Starter,Horizontal
+5,Empty,free
+6,Pipe,Vertical
+7,PipeStatic,10
+8,Empty,free
+9,End,Vertical
+10,Pipe,11
+11,Pipe,Horizontal
+12,Pipe,11
+13,Pipe,11
+14,Pipe,00
+15,Pipe,Vertical
+16,Pipe,01
+
