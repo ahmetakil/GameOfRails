@@ -2,6 +2,7 @@ package gameOfRails.gui;
 
 import gameOfRails.Main;
 import gameOfRails.util.audioUtil;
+import gameOfRails.util.fileUtil;
 import gameOfRails.util.statUtil;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -22,7 +23,8 @@ public class FinalGui {
     private Pane finalPane;
 
     public FinalGui(){
-        audioUtil.stop();
+
+        audioUtil.stopAll();
 
         finalPane = new Pane();
         finalPane.setStyle("-fx-background-color:#f84cff");
@@ -35,7 +37,7 @@ public class FinalGui {
         ImageView imageView = new ImageView(backScreen);
         imageView.setFitHeight(440);
         imageView.setFitWidth(640);
-        audioUtil.playInLoop(audioUtil.getEntryMusic());
+        audioUtil.playEntry();
         finalPane.getChildren().addAll(imageView);
 
         BorderPane borderPane = new BorderPane();
@@ -66,12 +68,12 @@ public class FinalGui {
 
         restartButton.setOnMousePressed(e ->{
             Main.LEVEL = 1;
-            audioUtil.stop();
-            Main.getStage().setScene(GameGui.getGameScene());
+            audioUtil.stopAll();
+           new EntryGui(fileUtil.createGrid(1));
         });
 
         exitButton.setOnMousePressed(e->{
-            audioUtil.stop();
+           audioUtil.stopAll();
             Main.getStage().close();
         });
 

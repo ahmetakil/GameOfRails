@@ -42,8 +42,7 @@ public class GameGui {
         // rootPane is our global pane that holds gamePane and sidePane
         rootPane = new Pane();
         rootPane.setStyle("-fx-background-color:#000000");
-        audioUtil.stop();
-        audioUtil.playOnce(audioUtil.getInGameMusic());
+        audioUtil.playGame();
 
         gameScene = new Scene(rootPane, 640, 440); // Creating gameScene with panes
 
@@ -148,7 +147,6 @@ public class GameGui {
 
         timeUtil.startTimer();
 
-
         // Iterate through all the tiles and set their event handlers.
         for (int row = 0; row < tiles.length; row++) {
             for (int col = 0; col < tiles[row].length; col++) {
@@ -210,19 +208,20 @@ public class GameGui {
                                         TOTAL_MOVES += Main.NUMBER_OF_MOVES.getValue();
                                         statUtil.addToStats();
                                         timeUtil.stopTime();
-                                        audioUtil.playInLoop(audioUtil.getCartSound());
                                         Animation.playAnimation(gamePane, gameUtil.getPaths());
+                                        audioUtil.playCart();
+
 
                                         if (Main.LEVEL >= Main.MAX_LEVEL) {
                                             Animation.getPathTransition().setOnFinished(event -> {
-                                                audioUtil.stop();
+                                               audioUtil.stopCart();
                                                 new FinalGui();
                                             });
                                         } else {
                                             Tile[][] nextLevel = fileUtil.createGrid(++Main.LEVEL);
-                                            GameGui nextGui = new GameGui(nextLevel);
                                             Animation.getPathTransition().setOnFinished(event -> {
-                                                audioUtil.stop();
+                                                GameGui nextGui = new GameGui(nextLevel);
+                                                audioUtil.stopCart();
                                                 nextGui.showGui(Main.getStage());
                                                 Main.NUMBER_OF_MOVES.set(0);
                                             });

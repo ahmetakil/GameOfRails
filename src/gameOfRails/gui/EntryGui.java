@@ -25,7 +25,6 @@ public class EntryGui {
     public static String NAME;
 
 
-
     public EntryGui(Tile[][] tiles){
 
 
@@ -35,7 +34,7 @@ public class EntryGui {
         entryScene = new Scene(entryPane,640,440);
         entryPane.setMaxHeight(440);
         entryPane.setMaxWidth(640);
-        audioUtil.playInLoop(audioUtil.getEntryMusic());
+        audioUtil.playEntry();
         Image backScreen = new Image(new File("img/train.gif").toURI().toString());
         ImageView imageView = new ImageView(backScreen);
         imageView.setFitHeight(440);
@@ -65,16 +64,10 @@ public class EntryGui {
         musicButton.setLayoutX(20);
         musicButton.setLayoutY(20);
 
-        musicButton.setOnMousePressed(e -> {
-                    audioUtil.Mute();
-                    System.out.println("a");
-                }
-        );
-
+        musicButton.setOnMousePressed(e -> audioUtil.mute());
 
         Button button = new Button("Play");
         button.setDefaultButton(true);
-
 
         // Creating borderPane to put our text and button on login screen
         borderPane.setMinSize(640, 440);
@@ -100,7 +93,7 @@ public class EntryGui {
         entryPane.getChildren().addAll(borderPane,nameArea);
         entryPane.getChildren().addAll(musicButton);
         button.setOnAction(e->{
-            audioUtil.stop();
+            audioUtil.stopEntry();
             GameGui gui = new GameGui(tiles);
             gui.showGui(Main.getStage());
             NAME =  textField.getText();
