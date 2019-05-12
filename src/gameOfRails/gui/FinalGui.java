@@ -31,6 +31,7 @@ class FinalGui {
         finalPane.setMaxHeight(440);
         finalPane.setMaxWidth(640);
 
+        //Creating and setting backscreen image
         Image backScreen = new Image(new File("img/outro.gif").toURI().toString());
         ImageView imageView = new ImageView(backScreen);
         imageView.setFitHeight(440);
@@ -38,7 +39,7 @@ class FinalGui {
         audioUtil.playEntry();
         finalPane.getChildren().addAll(imageView);
 
-
+        //Creating and setting stats
         Text stats = new Text(statUtil.stats());
         stats.setFill(Color.web("ecff82"));
         stats.setX(140);

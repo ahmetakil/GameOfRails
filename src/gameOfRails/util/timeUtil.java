@@ -27,6 +27,7 @@ public class timeUtil {
         return String.format("%02d:%02d",minutes,seconds%60);
     }
 
+    //Converts millis to seconds
     public static long currentSeconds(){
         return (System.currentTimeMillis() - begin)/1000;
     }
