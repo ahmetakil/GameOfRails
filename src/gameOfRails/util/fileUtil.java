@@ -33,10 +33,14 @@ public class fileUtil {
 
     }
 
-    public static int getMaxLevel(){
+    public static int getMaxLevel() {
 
-        File file = new File("levels/");
-        return file.listFiles().length;
+        try {
+            File file = new File("levels/");
+            return file.listFiles().length;
+        }catch(NullPointerException e){
+            return 0;
+        }
     }
 
     private static ArrayList<Tile> readText(int level) { // Reading text with level parameter
@@ -97,7 +101,7 @@ public class fileUtil {
 
                         } else {
 
-                            tiles.add(new EmptyTile(coordinates[0], coordinates[1],true));
+                            tiles.add(new EmptyTile(coordinates[0], coordinates[1], true));
                         }
                         break;
 

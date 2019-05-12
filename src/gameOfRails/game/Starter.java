@@ -9,16 +9,16 @@ public class Starter extends Pipe {
 
     public Starter(int x, int y, boolean upEdge, boolean downEdge, boolean leftEdge, boolean rightEdge) {
 
-        super(x, y,false,upEdge, downEdge, leftEdge, rightEdge);
+        super(x, y, false, upEdge, downEdge, leftEdge, rightEdge);
         setFill();
 
     }
 
     @Override
-    public void setFill(){
-        if(isHorizontal()) {
+    public void setFill() {
+        if (isHorizontal()) {
             this.setFill(new ImagePattern(new Image(new File("img/starterHorizontal.png").toURI().toString())));
-        }else{
+        } else {
             this.setFill(new ImagePattern(new Image(new File("img/starterVertical.png").toURI().toString())));
         }
     }
@@ -29,7 +29,7 @@ public class Starter extends Pipe {
     }
 
     @Override
-    public String toString(){
-        return String.format("Starter pipe at %d %d ",getxGrid(),getyGrid());
+    public String toString() {
+        return String.format("Starter pipe at %d %d ", getxGrid(), getyGrid());
     }
 }

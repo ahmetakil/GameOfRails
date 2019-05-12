@@ -7,9 +7,8 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 public class timeUtil {
-    static long begin;
-    static long time;
-    static Timeline clock;
+    private static long begin;
+    private static Timeline clock;
 
     //This methods takes initial time
     public static void startTimer(){

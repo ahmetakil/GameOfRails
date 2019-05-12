@@ -4,8 +4,8 @@ import gameOfRails.Main;
 import gameOfRails.gui.GameGui;
 
 public class statUtil {
-    static int[] times = new int[Main.MAX_LEVEL];
-    static int[] moves = new int[Main.MAX_LEVEL];
+    private static int[] times = new int[Main.MAX_LEVEL];
+    private static int[] moves = new int[Main.MAX_LEVEL];
 
     public static void addToStats(){
         times[Main.LEVEL -1] = (int) timeUtil.currentSeconds();
@@ -20,13 +20,7 @@ public class statUtil {
         string += String.format("In Total -> Time: %s Number of Moves: %d",hourFormatConverter(GameGui.TOTAL_SECONDS),GameGui.TOTAL_MOVES);
         return string;
     }
-    private static int arrraySum(int[] arrray){
-        int sum = 0;
-        for (int i = 0;i<arrray.length;i++){
-            sum+= arrray[i];
-        }
-        return sum;
-    }
+
 
     private static String hourFormatConverter(int input){
 

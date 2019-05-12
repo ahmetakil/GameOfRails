@@ -31,7 +31,7 @@ public class GameGui {
     private double tilePrevX = 0; // X location of tile before dragging used for swapping tiles.
     private double tilePrevY = 0; // Y location of tile before dragging used for swapping tiles.
 
-    public GameGui(Tile[][] tiles) {
+    GameGui(Tile[][] tiles) {
 
 
         this.tiles = tiles;
@@ -80,7 +80,7 @@ public class GameGui {
     }
 
     // This method clears the pane and sets our default root pane.
-    public void showGui(Stage stage) {
+    void showGui(Stage stage) {
         showGame();
         showSidePane();
         stage.setScene(gameScene);
@@ -88,7 +88,7 @@ public class GameGui {
     }
 
 
-    public void showSidePane() {
+    private void showSidePane() {
 
         BackgroundImage gameBackground = new BackgroundImage(new Image(new File("img/emptyFree.jpeg").toURI().toString()), BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
         sidePane.setBackground(new Background(gameBackground));
@@ -138,14 +138,14 @@ public class GameGui {
 
         Button muteButton = gameUtil.createMuteButton();
 
-        vbox.getChildren().addAll(level, currentLevel, numberOfMoves, currentNumberMoves, timeText, time,muteButton);
+        vbox.getChildren().addAll(level, currentLevel, numberOfMoves, currentNumberMoves, timeText, time, muteButton);
 
         sidePane.getChildren().add(vbox);
 
     }
 
     // This method is responsible for creating the gamePane and adding all the events.
-    public void showGame() {
+    private void showGame() {
 
         timeUtil.startTimer();
 
@@ -216,7 +216,7 @@ public class GameGui {
 
                                         if (Main.LEVEL >= Main.MAX_LEVEL) {
                                             Animation.getPathTransition().setOnFinished(event -> {
-                                               audioUtil.stopCart();
+                                                audioUtil.stopCart();
                                                 new FinalGui();
                                             });
                                         } else {

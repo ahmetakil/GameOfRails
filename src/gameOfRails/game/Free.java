@@ -9,7 +9,7 @@ public class Free extends EmptyTile {
 
 
     public Free(int x, int y) {
-        super(x, y,false);
+        super(x, y, false);
     }
 
     @Override
@@ -18,7 +18,7 @@ public class Free extends EmptyTile {
     }
 
     @Override
-    public String toString(){
-        return String.format("Free  at %d %d ",getxGrid(),getyGrid());
+    public String toString() {
+        return String.format("Free  at %d %d ", getxGrid(), getyGrid());
     }
 }

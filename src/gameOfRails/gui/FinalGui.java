@@ -70,7 +70,6 @@ class FinalGui {
         hbox.setLayoutY(finalPane.getMaxHeight() - 40);
 
 
-
         restartButton.setOnMousePressed(e -> {
             Main.LEVEL = 1;
             Main.NUMBER_OF_MOVES.setValue(0);

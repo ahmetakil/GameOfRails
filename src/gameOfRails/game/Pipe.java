@@ -12,9 +12,9 @@ public class Pipe extends Tile {
     private boolean leftEdge;
     private boolean rightEdge;
 
-    public Pipe(int x, int y,boolean movable,boolean upEdge, boolean downEdge, boolean leftEdge, boolean rightEdge) {
+    public Pipe(int x, int y, boolean movable, boolean upEdge, boolean downEdge, boolean leftEdge, boolean rightEdge) {
 
-        super(x, y,movable);
+        super(x, y, movable);
         this.upEdge = upEdge;
         this.downEdge = downEdge;
         this.leftEdge = leftEdge;
@@ -25,13 +25,13 @@ public class Pipe extends Tile {
     @Override
     public void setFill() {
 
-        if(isHorizontal() && isMovable()) {
+        if (isHorizontal() && isMovable()) {
             this.setFill(new ImagePattern(new Image(new File("img/pipeHorizontal.jpeg").toURI().toString())));
-        }else if(isHorizontal() && !isMovable()){
+        } else if (isHorizontal() && !isMovable()) {
             this.setFill(new ImagePattern(new Image(new File("img/staticHorizontal.jpeg").toURI().toString())));
-        }else if(!isHorizontal() && isMovable()){
+        } else if (!isHorizontal() && isMovable()) {
             this.setFill(new ImagePattern(new Image(new File("img/pipeVertical.jpeg").toURI().toString())));
-        }else if(!isHorizontal() && !isMovable()){
+        } else if (!isHorizontal() && !isMovable()) {
             this.setFill(new ImagePattern(new Image(new File("img/staticVertical.jpeg").toURI().toString())));
         }
     }
@@ -69,13 +69,13 @@ public class Pipe extends Tile {
         this.rightEdge = rightEdge;
     }
 
-    public boolean isHorizontal(){
+    public boolean isHorizontal() {
         return (this.leftEdge && this.rightEdge);
     }
 
     @Override
-    public String toString(){
-        return String.format("Pipe at %d %d ",getxGrid(),getyGrid());
+    public String toString() {
+        return String.format("Pipe at %d %d ", getxGrid(), getyGrid());
     }
 
 }
