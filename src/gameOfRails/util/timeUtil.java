@@ -21,7 +21,7 @@ public class timeUtil {
     it into the seconds and minutes with dividing the milliseconds and returns string
     as a clock format.
      */
-    public static String currentTime(){
+    private static String currentTime(){
 
         long seconds = currentSeconds();
         long minutes = seconds/60;

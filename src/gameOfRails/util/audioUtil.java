@@ -17,15 +17,15 @@ public class audioUtil {
     private static MediaPlayer entryPlayer = new MediaPlayer(entryMusic);
     private static MediaPlayer gamePlayer = new MediaPlayer(inGameMusic);
     private static boolean isMuted = false;
-    public static StringProperty muteText = new SimpleStringProperty("MUTE");
+    static StringProperty muteText = new SimpleStringProperty("MUTE");
 
-    public static void play(MediaPlayer mediaPlayer) {
+    private static void play(MediaPlayer mediaPlayer) {
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.play();
     }
 
 
-    public static void stop(MediaPlayer mediaPlayer) {
+    private static void stop(MediaPlayer mediaPlayer) {
         mediaPlayer.stop();
     }
 
@@ -57,7 +57,7 @@ public class audioUtil {
     }
 
 
-    public static void mute() {
+    static void mute() {
 
         if (isMuted) {
             cartPlayer.setMute(false);

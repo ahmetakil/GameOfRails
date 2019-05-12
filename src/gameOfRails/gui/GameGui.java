@@ -23,11 +23,8 @@ public class GameGui {
     static public int TOTAL_MOVES = 0;
     private static Scene gameScene;
     private Tile[][] tiles;
-    private Pane rootPane;
     private Pane gamePane;
     private Pane sidePane;
-
-    private static int GAME_SIZE = gameUtil.GAME_SIZE;
 
     private ArrayList<Tile> swapArray;
 
@@ -41,7 +38,7 @@ public class GameGui {
 
 
         // rootPane is our global pane that holds gamePane and sidePane
-        rootPane = new Pane();
+        Pane rootPane = new Pane();
         rootPane.setStyle("-fx-background-color:#000000");
         audioUtil.playGame();
 
@@ -49,6 +46,7 @@ public class GameGui {
 
         // gamePane is  playable pane that holds the grid.
         gamePane = new Pane();
+        int GAME_SIZE = gameUtil.GAME_SIZE;
         gamePane.setMaxWidth(GAME_SIZE);
         gamePane.setMaxHeight(GAME_SIZE);
         gamePane.setLayoutX(10);
@@ -295,7 +293,4 @@ public class GameGui {
         swapArray.clear();
     }
 
-    public static Scene getGameScene() {
-        return gameScene;
-    }
 }

@@ -8,31 +8,22 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 
 import java.io.File;
 
 public class EntryGui {
 
-    private static Scene entryScene;
-    private Pane entryPane;
-    static String NAME;
-
-
     public EntryGui(Tile[][] tiles){
 
-
-        entryPane = new Pane();
+        Pane entryPane = new Pane();
         entryPane.setStyle("-fx-background-color:#f84cff");
 
-        entryScene = new Scene(entryPane,640,440);
+        Scene entryScene = new Scene(entryPane, 640, 440);
         entryPane.setMaxHeight(440);
         entryPane.setMaxWidth(640);
         audioUtil.playEntry();
@@ -74,15 +65,9 @@ public class EntryGui {
         BorderPane.setMargin(button, new Insets(5,5,50,5));
 
 
-        Label name = new Label("Name:");
-        name.setTextFill(Color.web("ecff82"));
-
-        TextField textField = new TextField();
-        NAME = textField.getText();
 
         HBox nameArea = new HBox();
         nameArea.setSpacing(10);
-        nameArea.getChildren().addAll(name,textField);
         nameArea.setLayoutX(entryPane.getMaxHeight()/2);
         nameArea.setLayoutY(entryPane.getMaxWidth()/2);
 
@@ -92,7 +77,6 @@ public class EntryGui {
             audioUtil.stopEntry();
             GameGui gui = new GameGui(tiles);
             gui.showGui(Main.getStage());
-            NAME =  textField.getText();
     });
 
         Main.getStage().setScene(entryScene);

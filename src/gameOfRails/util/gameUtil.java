@@ -12,7 +12,7 @@ public class gameUtil {
 
     public static final int GAME_SIZE = 400;
     private static ArrayList<PathElement> paths = new ArrayList<>();
-    public static final int offset = 40;
+    static final int offset = 40;
 
     public static ArrayList<PathElement> getPaths() {
         return paths;
@@ -162,7 +162,7 @@ public class gameUtil {
 
     }
 
-    public static boolean isInsideBoundaries(int x, int y) {
+    private static boolean isInsideBoundaries(int x, int y) {
 
         if (x < 0 || x > 3 || y < 0 || y > 3) {
             return false;

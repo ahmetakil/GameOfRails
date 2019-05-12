@@ -20,7 +20,7 @@ public class Curved extends Pipe {
     }
 
     // Converts input text from file to 4 variable boolean logic.
-    public void setPosition(int position1, int position2) {
+    private void setPosition(int position1, int position2) {
 
         if (position1 == 0) {
             setUpEdge(true);

@@ -28,7 +28,7 @@ public class statUtil {
         return sum;
     }
 
-    public static String hourFormatConverter (int input){
+    private static String hourFormatConverter(int input){
 
         long seconds = input;
         long minutes = seconds/60;
