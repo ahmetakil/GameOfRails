@@ -14,10 +14,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
+import javax.swing.*;
 import java.io.File;
 
 public class FinalGui {
@@ -43,13 +47,12 @@ public class FinalGui {
         audioUtil.playEntry();
         finalPane.getChildren().addAll(imageView);
 
-        BorderPane borderPane = new BorderPane();
 
         Text stats = new Text(statUtil.stats());
         stats.setFill(Color.web("ecff82"));
-        stats.setX(finalPane.getMaxWidth()/2 - 50);
-        stats.setY(finalPane.getMaxHeight()/2);
-        stats.setTextAlignment(TextAlignment.CENTER);
+        stats.setX(120);
+        stats.setY(finalPane.getMaxHeight()/2 -60);
+        stats.setFont(Font.font("Helvetica", FontWeight.BOLD,15));
 
 
 
@@ -57,27 +60,35 @@ public class FinalGui {
         Image gameName = new Image(new File("img/congratulations.png").toURI().toString());
         ImageView gameNameImage = new ImageView(gameName);
         gameNameImage.setX(finalPane.getMaxWidth()/2- 301);
-        gameNameImage.setY(finalPane.getMaxHeight()/2 - 133);
+        gameNameImage.setY(finalPane.getMaxHeight()/2 - 153);
         gameNameImage.setFitWidth(602);
         gameNameImage.setFitHeight(53);
         finalPane.getChildren().addAll(gameNameImage);
 
 
         Button restartButton = new Button("PLAY AGAIN");
-        Button exitButton = new Button("EXIT THE GAME " + EntryGui.NAME);
+        Button exitButton = new Button("EXIT THE GAME " + EntryGui.NAME.toUpperCase());
 
-        HBox buttons = new HBox();
-        buttons.setSpacing(20);
-        buttons.getChildren().addAll(exitButton,restartButton);
-        //buttons.setLayoutX(finalPane.getMaxHeight()/2);
-        //buttons.setLayoutY(finalPane.getMaxWidth()/2);
+        VBox restartButtonPos = new VBox();
+        restartButtonPos.setAlignment(Pos.CENTER);
+        restartButtonPos.getChildren().addAll(restartButton);
+
+        restartButtonPos.setLayoutX(finalScene.getWidth()/2);
+
+        VBox exitButtonPos = new VBox();
+        exitButtonPos.setAlignment(Pos.CENTER);
+        exitButtonPos.getChildren().addAll(exitButton);
+
+        exitButtonPos.setLayoutX(finalScene.getWidth()/2);
+
+
         // Creating borderPane to put our text and button on login screen
-        borderPane.setMinSize(640, 440);
-        borderPane.setBottom(buttons);
-
+        //borderPane.setMinSize(640, 440);
+        //borderPane.setBottom(buttons);
 
         restartButton.setOnMousePressed(e ->{
             Main.LEVEL = 1;
+            Main.NUMBER_OF_MOVES.setValue(0);
             Animation.getPaths().clear();
             audioUtil.stopAll();
            new EntryGui(fileUtil.createGrid(1));
@@ -89,10 +100,10 @@ public class FinalGui {
         });
 
             //Using static borderPane methods to adjust the settings.
-        BorderPane.setAlignment(buttons, Pos.CENTER);
-        BorderPane.setMargin(buttons, new Insets(5,5,50,5));
 
-        finalPane.getChildren().addAll(borderPane);
+        //BorderPane.setMargin(buttons, new Insets(0,0,80,finalPane.getMaxWidth()/2-132));
+        finalPane.getChildren().addAll(exitButtonPos,restartButtonPos);
+       // finalPane.getChildren().addAll(restartButton,exitButton);
         finalPane.getChildren().addAll(stats);
         Main.getStage().setScene(finalScene);
         Main.getStage().show();

@@ -62,7 +62,7 @@ public class EntryGui {
 
         Button muteButton = gameUtil.createMuteButton();
 
-        Button button = new Button("Play");
+        Button button = new Button("PLAY");
         button.setDefaultButton(true);
 
         // Creating borderPane to put our text and button on login screen

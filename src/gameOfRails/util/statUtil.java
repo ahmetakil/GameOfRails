@@ -15,9 +15,9 @@ public class statUtil {
     public static String stats(){
         String string = "";
         for (int i = 0;i<Main.MAX_LEVEL;i++){
-            string += String.format("Level %d   Time: %s Number of Moves: %d\n",i+1,hourFormatConverter(times[i]),moves[i]);
+            string += (String.format("Level %d  -> Time: %s Number of Moves: %d \n",i+1,hourFormatConverter(times[i]),moves[i]));
         }
-        string += "In Total: Time is:" + hourFormatConverter(GameGui.TOTAL_SECONDS) + " Number of Moves: " + GameGui.TOTAL_MOVES;
+        string += String.format("In Total -> Time: %s Number of Moves: %d",hourFormatConverter(GameGui.TOTAL_SECONDS),GameGui.TOTAL_MOVES);
         return string;
     }
     private static int arrraySum(int[] arrray){
