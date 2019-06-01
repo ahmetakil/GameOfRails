@@ -27,6 +27,7 @@ public class Animation {
         Rectangle rect = new Rectangle(80, 80);
         rect.setFill(new ImagePattern(new Image(new File("img/cart.png").toURI().toString())));
 
+
         double starterX = 0; // Grid x-y position of starterTile
         double starterY = 0;
 
