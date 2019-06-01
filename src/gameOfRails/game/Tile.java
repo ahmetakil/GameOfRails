@@ -68,8 +68,6 @@ public abstract class Tile extends Rectangle {
         this.yGrid = yGrid;
     }
 
-    public boolean isMovable(){return movable;}
-
     @Override
     public String toString() {
         return String.format("Tile at : %d , %d", xGrid, yGrid);

@@ -48,11 +48,8 @@ public class Animation {
         pane.getChildren().add(rect);
 
         pathTransition = new PathTransition();
-<<<<<<< HEAD:src/gameOfRails/util/Animation.java
         pathTransition.setDuration(Duration.seconds(2));
-=======
         pathTransition.setDuration(Duration.seconds(3));
->>>>>>> 66dac5a... Optimization Update:src/util/Animation.java
         pathTransition.setCycleCount(1);
 
         pathTransition.setNode(rect);
