@@ -4,7 +4,7 @@
 4,Pipe,Horizontal
 5,Starter,Vertical
 6,Pipe,01
-7,PipeStatic,01
+7,Pipe,01
 8,Empty,none
 9,Empty,none
 10,Empty,free

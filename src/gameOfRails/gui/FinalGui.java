@@ -18,9 +18,13 @@ import javafx.scene.text.Text;
 
 import java.io.File;
 
+
+
 class FinalGui {
 
+
     FinalGui() {
+
 
         audioUtil.stopAll();
 

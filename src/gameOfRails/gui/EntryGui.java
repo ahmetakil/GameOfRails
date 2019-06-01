@@ -13,6 +13,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 import java.io.File;
 
@@ -69,6 +71,10 @@ public class EntryGui {
         BorderPane.setAlignment(button, Pos.CENTER);
         BorderPane.setMargin(button, new Insets(5, 5, 50, 5));
 
+        Text names = new Text("Made by Ahmet Akıl & Rıdvan San");
+        names.setFill(Color.YELLOW);
+
+        borderPane.setBottom(button);
 
         HBox nameArea = new HBox();
         nameArea.setSpacing(10);
